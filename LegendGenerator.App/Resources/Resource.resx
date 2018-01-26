@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnClose" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="btnCreateLegend" xml:space="preserve">
+    <value>Legende erstellen</value>
+  </data>
+  <data name="btnDumpStyle" xml:space="preserve">
+    <value>Style Dump - Tabelle</value>
+  </data>
+  <data name="btnLegendTemplate" xml:space="preserve">
+    <value>Legenden - Template</value>
+  </data>
+  <data name="btnLoadSqlServerTables" xml:space="preserve">
+    <value>Lade SQL Server Tabellen</value>
+  </data>
+  <data name="btnResetGraphicsContainer" xml:space="preserve">
+    <value>Reset PageLayout</value>
+  </data>
+  <data name="tabItemAccess" xml:space="preserve">
+    <value>Access -Datenbank</value>
+  </data>
+  <data name="chkAuthentifizierung" xml:space="preserve">
+    <value>  SQL Authentifizierung</value>
+  </data>
+  <data name="chkFarbwerte" xml:space="preserve">
+    <value>  Farbwerte in der Legende zeichnen</value>
+  </data>
+  <data name="chkFortlaufendeNummer" xml:space="preserve">
+    <value>  verwende fortlaufende Nummerierung</value>
+  </data>
+  <data name="chkGifExport" xml:space="preserve">
+    <value>  *.gif Export</value>
+  </data>
+  <data name="chkSpatialQuery" xml:space="preserve">
+    <value>  nur sichtbaren Bereich berücksichtigen</value>
+  </data>
+  <data name="chkSpracheDeutsch" xml:space="preserve">
+    <value>  Deutsch</value>
+  </data>
+  <data name="chkSpracheEnglisch" xml:space="preserve">
+    <value>  Englisch</value>
+  </data>
+  <data name="tabItemSde" xml:space="preserve">
+    <value>SDE - Datenbank</value>
+  </data>
+  <data name="tabItemAufdrucksfarben" xml:space="preserve">
+    <value>Schmuckfarben</value>
+  </data>
+  <data name="tabItemSelektion" xml:space="preserve">
+    <value>Query</value>
+  </data>
+  <data name="tabItemGrafPos" xml:space="preserve">
+    <value>Positionierung</value>
+  </data>
+  <data name="tabItemUmbruch" xml:space="preserve">
+    <value>Umbruch</value>
+  </data>
+  <data name="groupBox5" xml:space="preserve">
+    <value>Formulardaten speichern</value>
+  </data>
+  <data name="lblAccessDatabase" xml:space="preserve">
+    <value>Accessdatenbank:</value>
+  </data>
+  <data name="lblAufdruckBlau" xml:space="preserve">
+    <value>Aufdruck - BLAU:</value>
+  </data>
+  <data name="lblAufdruckBraun" xml:space="preserve">
+    <value>Aufdruck - BRAUN:</value>
+  </data>
+  <data name="lblAufdruckCyan" xml:space="preserve">
+    <value>Aufdruck - CYAN:</value>
+  </data>
+  <data name="lblAufdruckGelb" xml:space="preserve">
+    <value>Aufdruck - GELB:</value>
+  </data>
+  <data name="lblAufdruckGrau" xml:space="preserve">
+    <value>Aufdruck - GRAU:</value>
+  </data>
+  <data name="lblAufdruckGruen" xml:space="preserve">
+    <value>Aufdruck - GRÜN:</value>
+  </data>
+  <data name="lblAufdruckMagenta" xml:space="preserve">
+    <value>Aufdruck - MAGENTA:</value>
+  </data>
+  <data name="lblAufdruckOrange" xml:space="preserve">
+    <value>Aufdruck - ORANGE:</value>
+  </data>
+  <data name="lblAufdruckRot" xml:space="preserve">
+    <value>Aufdruck - ROT:</value>
+  </data>
+  <data name="lblDatabase" xml:space="preserve">
+    <value>Datenbank:</value>
+  </data>
+  <data name="lblFlaeche" xml:space="preserve">
+    <value>Flächensymbolname:</value>
+  </data>
+  <data name="lblGruppierung" xml:space="preserve">
+    <value>Gruppierung:</value>
+  </data>
+  <data name="lblSpatialQueryId" xml:space="preserve">
+    <value>ID:</value>
+  </data>
+  <data name="lblInfozeile4" xml:space="preserve">
+    <value>Infozeile 4:</value>
+  </data>
+  <data name="lblInfozeile5" xml:space="preserve">
+    <value>Infozeile 5:</value>
+  </data>
+  <data name="lblInfozeile6" xml:space="preserve">
+    <value>Infozeile 6:</value>
+  </data>
+  <data name="lblInstance" xml:space="preserve">
+    <value>Instanz:</value>
+  </data>
+  <data name="lblKaestchenLegendentextAbstand" xml:space="preserve">
+    <value>Kästchen - Legendentext - Abstand:</value>
+  </data>
+  <data name="lblKlammerabstand" xml:space="preserve">
+    <value>Klammerabstand:</value>
+  </data>
+  <data name="lblKlammerebene1" xml:space="preserve">
+    <value>Klammerebene 1:</value>
+  </data>
+  <data name="lblKlammerebene2" xml:space="preserve">
+    <value>Klammerebene 2:</value>
+  </data>
+  <data name="lblKlammerebene3" xml:space="preserve">
+    <value>Klammerebene 3:</value>
+  </data>
+  <data name="lblKonfigurationsdatei" xml:space="preserve">
+    <value>Konfigurationsdatei:</value>
+  </data>
+  <data name="lblLegendengrafik" xml:space="preserve">
+    <value>Legendengrafik:</value>
+  </data>
+  <data name="lblLegendennummer" xml:space="preserve">
+    <value>lfde Legendennummer:</value>
+  </data>
+  <data name="lblLegendentext" xml:space="preserve">
+    <value>Legendentext:</value>
+  </data>
+  <data name="lblLegendTable" xml:space="preserve">
+    <value>Legendentabelle:</value>
+  </data>
+  <data name="lblLegendtablePaths" xml:space="preserve">
+    <value>Legendentabelle - Pfade und Feldnamen</value>
+  </data>
+  <data name="lblLinie" xml:space="preserve">
+    <value>Liniensymbolname:</value>
+  </data>
+  <data name="lblMarker" xml:space="preserve">
+    <value>Markersymbolname:</value>
+  </data>
+  <data name="lblNachUeberschrift1" xml:space="preserve">
+    <value>nach Überschrift 1:</value>
+  </data>
+  <data name="lblNachUeberschrift2" xml:space="preserve">
+    <value>nach Überschrift 2:</value>
+  </data>
+  <data name="lblNotizenOffset" xml:space="preserve">
+    <value>Notizen Offset:</value>
+  </data>
+  <data name="lblPassword" xml:space="preserve">
+    <value>Passwort:</value>
+  </data>
+  <data name="lblAttributeQuery" xml:space="preserve">
+    <value>QUERY (z.B. L__SORT LIKE 'a*' and HEADING1 LIKE 'Quartär*'):</value>
+  </data>
+  <data name="lblSqlServer" xml:space="preserve">
+    <value>Server:</value>
+  </data>
+  <data name="lblSortierschluessel" xml:space="preserve">
+    <value>Sortierung:</value>
+  </data>
+  <data name="lblUmbruchSpaltenOffset" xml:space="preserve">
+    <value>Spalten Offset [cm]:</value>
+  </data>
+  <data name="lblStyle" xml:space="preserve">
+    <value>Bevorzugter Symbol Style:</value>
+  </data>
+  <data name="lblUeberschrift1" xml:space="preserve">
+    <value>Überschrift 1:</value>
+  </data>
+  <data name="lblUeberschrift2" xml:space="preserve">
+    <value>Überschrift 2:</value>
+  </data>
+  <data name="lblUeberschrift3" xml:space="preserve">
+    <value>Überschrift 3:</value>
+  </data>
+  <data name="lblUmbruchSpaltenLaenge" xml:space="preserve">
+    <value>Einträge/Spalte:</value>
+  </data>
+  <data name="lblUmbruchLegendentext" xml:space="preserve">
+    <value>Legendentext:</value>
+  </data>
+  <data name="lblUmbruchUeberschrift1" xml:space="preserve">
+    <value>Überschrift 1:</value>
+  </data>
+  <data name="lblUmbruchUeberschrift2" xml:space="preserve">
+    <value>Überschrift 2:</value>
+  </data>
+  <data name="lblUmbruchUeberschrift3" xml:space="preserve">
+    <value>Überschrift 3:</value>
+  </data>
+  <data name="lblUser" xml:space="preserve">
+    <value>Benutzer:</value>
+  </data>
+  <data name="lblDatabaseId" xml:space="preserve">
+    <value>Verknüpfungs ID:</value>
+  </data>
+  <data name="lblVersion" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="lblVertikalabstand" xml:space="preserve">
+    <value>Vertikalbstand:</value>
+  </data>
+  <data name="lblVorUeberschrift1" xml:space="preserve">
+    <value>vor Überschrift 1:</value>
+  </data>
+  <data name="lblXoffset" xml:space="preserve">
+    <value>X-Offset:</value>
+  </data>
+  <data name="lblYoffset" xml:space="preserve">
+    <value>Y-Offset:</value>
+  </data>
+  <data name="lblZeichenelemente" xml:space="preserve">
+    <value>Zeichenelemente:</value>
+  </data>
+  <data name="lblNotizen" xml:space="preserve">
+    <value>Notizen:</value>
+  </data>
+  <data name="LoadObjectButton" xml:space="preserve">
+    <value>Laden</value>
+  </data>
+  <data name="mnuAppClose" xml:space="preserve">
+    <value>Applikation schließen</value>
+  </data>
+  <data name="mnuAppLoad" xml:space="preserve">
+    <value>Konfigurationsfile öffnen</value>
+  </data>
+  <data name="mnuAppSave" xml:space="preserve">
+    <value>Datei speichern</value>
+  </data>
+  <data name="mnuEinstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="mnuFile" xml:space="preserve">
+    <value>Datei</value>
+  </data>
+  <data name="mnuSpracheinstellungen" xml:space="preserve">
+    <value>Spracheinstellungen</value>
+  </data>
+  <data name="SaveObjectButton" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="mnuAppSaveNew" xml:space="preserve">
+    <value>Datei speichern unter</value>
+  </data>
+  <data name="mnuAppHelp" xml:space="preserve">
+    <value>LegendGenerator-Hilfe</value>
+  </data>
+  <data name="mnuHilfe" xml:space="preserve">
+    <value>Hilfe</value>
+  </data>
+  <data name="mnuShowXml" xml:space="preserve">
+    <value>Zeige XML-File</value>
+  </data>
+  <data name="btnStylefileAdd" xml:space="preserve">
+    <value>Stylefile hinzufügen</value>
+  </data>
+  <data name="lblStylefileLabel1" xml:space="preserve">
+    <value>Wählen Sie bitte ein Stylefile:</value>
+  </data>
+  <data name="lblStylefileLabel2" xml:space="preserve">
+    <value>Stylefile:</value>
+  </data>
+  <data name="mnuAppAbout" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="mnuInfo" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="mnuLoadStylefile" xml:space="preserve">
+    <value>Stylefile laden</value>
+  </data>
+  <data name="lblEinstellungen" xml:space="preserve">
+    <value>Weitere Einstellungen:</value>
+  </data>
+  <data name="mnuResetPage" xml:space="preserve">
+    <value>Reset Legend</value>
+  </data>
+  <data name="tabItemDatenbankspalten" xml:space="preserve">
+    <value>Datenbankspalten</value>
+  </data>
+  <data name="tabItemOptionaleDatenbankspalten" xml:space="preserve">
+    <value>Weitere Datenbankspalten</value>
+  </data>
+  <data name="mnuFortlaufendeNummer" xml:space="preserve">
+    <value>fortlaufende Nummerierung</value>
+  </data>
+  <data name="mnuGraphicExport" xml:space="preserve">
+    <value>Symbol Export</value>
+  </data>
+  <data name="btnLegendNumberDatabase" xml:space="preserve">
+    <value>Verwende Nummerierung aus der Datenbank</value>
+  </data>
+  <data name="btnSymbolNotSave" xml:space="preserve">
+    <value>Bilder nicht abspeichern</value>
+  </data>
+  <data name="btnSymbolOk" xml:space="preserve">
+    <value>Bilder abspeichern</value>
+  </data>
+  <data name="btnLoadAccessTables" xml:space="preserve">
+    <value>Lade Access-Tabellen</value>
+  </data>
+  <data name="chkAccess" xml:space="preserve">
+    <value>  Verwende Access</value>
+  </data>
+  <data name="chkSde" xml:space="preserve">
+    <value>  Verwende SDE</value>
+  </data>
+  <data name="mnuDatenbankeinstellungen" xml:space="preserve">
+    <value>Datenbankeinstellungen</value>
+  </data>
+  <data name="mnuVerbindung" xml:space="preserve">
+    <value>Verbindungseinstellungen</value>
+  </data>
+  <data name="btnAbbrechen" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="chkAllowNullLegendNumber" xml:space="preserve">
+    <value>  L__NUM mit 0-Werten zulassen</value>
+  </data>
+</root>

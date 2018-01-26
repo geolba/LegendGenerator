@@ -1,0 +1,47 @@
+﻿<Window x:Class="LegendGenerator.App.View.WaitDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Processing..."
+        Width="294"
+        Height="174"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent" WindowStyle="None" WindowState="Normal"
+        AllowsTransparency="True"
+        Opacity="0.9"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ShowInTaskbar="False">
+
+    <Border CornerRadius="12,12,12,12"
+          BorderBrush="#FF020202"
+          BorderThickness="0,0,0,0"
+          Height="Auto">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Offset="0.0" Color="AliceBlue" />
+                <GradientStop Offset="1.0" Color="LightSteelBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Canvas>
+            <!--Close button-->
+            <Button Canvas.Left="239" Canvas.Top="16" Height="0" Width="0" Click="Button_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Canvas>
+                            <Rectangle Width="15" Height="15" Stroke="Black" RadiusX="3" RadiusY="3">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush x:Name="myAnimatedBrush" Color="Red" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Line X1="3" Y1="3" X2="12" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                            <Line X1="12" Y1="3" X2="3" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                        </Canvas>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Label Canvas.Left="28" Canvas.Top="48" Content="Please wait..." Height="34" Name="lblUeberschrift" FontWeight="SemiBold" FontStyle="Normal" FontSize="18" FontFamily="Verdana" Width="188" />
+            <Image Source="Skins/Images/gba.png" Canvas.Left="217" Canvas.Top="88" Height="28" Name="image1" Stretch="Uniform" Width="47" />
+
+        </Canvas>
+
+    </Border>
+</Window>

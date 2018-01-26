@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Image x:Key="imgNew" Source="Images/DocumentHS.png" Width="16" Height="16" />
+    <Image x:Key="imgLoad" Source="Images/openHS.png" Width="16" Height="16" x:Shared="false" /><!--Mehrfachverwendung dieser Resource durch x:Shared="false" -->
+    <Image x:Key="appClose" Source="Images/Close.png" Width="16" Height="16" />
+    <Image x:Key="imgSave" Source="Images/saveHS.png" Width="16" Height="16" x:Shared="false" />
+    <Image x:Key="imgPrint" Source="Images/PrintHS.png" Width="16" Height="16" />
+    <Image x:Key="imgPreview" Source="Images/PrintPreviewHS.png" Width="16" Height="16" />
+    <Image x:Key="imgInfo" Source="Images/info.png" Width="30" Height="18" x:Shared="false" />
+    <Image x:Key="imgFirst" Source="Images/Button_FrstPage_18_18.png" Width="18" Height="18" />
+    <Image x:Key="imgLast" Source="Images/Button_LastPage_18_18.png" Width="18" Height="18" />
+    <Image x:Key="imgNext" Source="Images/Button_NextPage_18_18.png" Width="18" Height="18" />
+    <Image x:Key="imgPrev" Source="Images/Button_PrevPage_18_18.png" Width="18" Height="18" />
+    <Image x:Key="imgEinstellungen" Source="Images/Einstellungen.png" Width="16" Height="16" x:Shared="false" />
+    <Image x:Key="imgHilfe" Source="Images/Hilfe.png" Width="16" Height="16" />
+    <Image x:Key="imgView" Source="Images/View16.png" Width="16" Height="16" />
+    <Image x:Key="imgLoadStyleFile" Source="Images/LoadStyleFile.png" Width="16" Height="16" />
+    <Image x:Key="imgRefresh" Source="Images/Refresh.png" Width="16" Height="16" />
+    <Image x:Key="imgNummerierung" Source="Images/Nummerierung.png" Width="16" Height="16" />
+    <Image x:Key="imgSymbolExport" Source="Images/SymbolExport.png" Width="16" Height="16" />
+</ResourceDictionary>

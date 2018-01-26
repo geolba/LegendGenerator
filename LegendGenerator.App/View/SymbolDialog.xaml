@@ -1,0 +1,59 @@
+﻿<Window x:Class="LegendGenerator.App.View.SymbolDialog"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
+        Title="Processing..."
+        Width="460"
+        Height="242"
+       WindowStartupLocation="CenterScreen"
+        Background="Transparent" WindowStyle="None" WindowState="Normal"
+        AllowsTransparency="True"
+        Opacity="0.9"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ShowInTaskbar="False" Loaded="Window_Loaded" Activated="Window_Activated">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Skins/Backgrounds.xaml"/>
+                <ResourceDictionary Source="../Skins/Graphics.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="12,12,12,12"
+          BorderBrush="#FF020202"
+          BorderThickness="0,0,0,0"
+          Height="Auto">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Offset="0.0" Color="AliceBlue" />
+                <GradientStop Offset="1.0" Color="LightSteelBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Canvas>
+            <!--Close button-->
+            <Button Canvas.Left="412" Canvas.Top="6" Height="0" Width="0" Click="Button_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Canvas>
+                            <Rectangle Width="15" Height="15" Stroke="Black" RadiusX="3" RadiusY="3">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush x:Name="myAnimatedBrush" Color="Red" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Line X1="3" Y1="3" X2="12" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                            <Line X1="12" Y1="3" X2="3" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                        </Canvas>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <CheckBox Content="{x:Static resx:Resource.chkGifExport}" Height="16" Name="chkGifExport" Checked="chkGifExport_Checked" Unchecked="chkGifExport_Unchecked" Canvas.Left="29" Canvas.Top="41" />
+            <TextBox Height="23" Name="txtSymbolDirectory" IsEnabled="True" Canvas.Left="29" Canvas.Top="63" Width="318" TextChanged="txtSymbolDirectory_TextChanged" />
+            <Button Content="{DynamicResource ResourceKey=imgLoad}" Height="23" Name="btnSymbolDirectory" Width="35" Click="btnSymbolDirectory_Click" IsEnabled="True" Canvas.Left="350" Canvas.Top="63" />
+            <Button Canvas.Left="250" Canvas.Top="129" Content="{x:Static resx:Resource.btnSymbolOk}" Height="23" Name="btnSymbolOk" Click="btnSymbolOk_Click" IsEnabled="False" Width="133" />
+            <Button Canvas.Left="250" Canvas.Top="158" Content="{x:Static resx:Resource.btnSymbolNotSave}" Height="23" Name="btnSymbolNotSave" Click="btnSymbolNotSave_Click" Width="133" />
+        </Canvas>
+
+    </Border>
+</Window>

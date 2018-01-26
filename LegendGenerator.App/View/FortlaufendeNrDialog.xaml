@@ -1,0 +1,59 @@
+﻿<Window x:Class="LegendGenerator.App.View.FortlaufendeNrDialog"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
+        Title="Processing..."
+        Width="519"
+        Height="213"
+       WindowStartupLocation="CenterScreen"
+        Background="Transparent" WindowStyle="None" WindowState="Normal"
+        AllowsTransparency="True"
+        Opacity="0.9"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ShowInTaskbar="False" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Skins/Backgrounds.xaml"/>
+                <ResourceDictionary Source="../Skins/Graphics.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="12,12,12,12"
+          BorderBrush="#FF020202"
+          BorderThickness="0,0,0,0"
+          Height="Auto">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Offset="0.0" Color="AliceBlue" />
+                <GradientStop Offset="1.0" Color="LightSteelBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Canvas>
+            <!--Close button-->
+            <Button Canvas.Left="465" Canvas.Top="6" Height="0" Width="0" Click="Button_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Canvas>
+                            <Rectangle Width="15" Height="15" Stroke="Black" RadiusX="3" RadiusY="3">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush x:Name="myAnimatedBrush" Color="Red" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Line X1="3" Y1="3" X2="12" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                            <Line X1="12" Y1="3" X2="3" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                        </Canvas>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <CheckBox Content="{x:Static resx:Resource.chkFortlaufendeNummer}" Height="16" Name="chkFortlaufendeNummer" Checked="chkFortlaufendeNummer_Checked" Unchecked="chkFortlaufendeNummer_Unchecked" Canvas.Left="18" Canvas.Top="39" IsChecked="False" />
+            
+            <TextBox Height="23" Name="txtFortlaufendeNummer" Text="label.txt" Canvas.Left="24" Canvas.Top="72" Width="388" TextChanged="txtFortlaufendeNummer_TextChanged" />
+            <Button Content="{DynamicResource imgLoad}" Height="23" Name="btnFortlaufendeNummer" Width="32" Click="btnFortlaufendeNummer_Click" Canvas.Left="433" Canvas.Top="72" />
+            <Button Canvas.Left="162" Canvas.Top="101" Content="OK" Height="23" Name="btnFortlaufendeNrOk" Width="250" Click="btnFortlaufendeNrOk_Click" IsEnabled="False" />
+        </Canvas>
+
+    </Border>
+</Window>

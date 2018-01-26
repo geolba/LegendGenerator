@@ -1,0 +1,89 @@
+﻿<UserControl x:Class=" LegendGenerator.App.View.Help.LegendGeneratorOverView"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <FlowDocumentReader ViewingMode="Scroll"  FontFamily="Calibri" Foreground="Black">        
+        <FlowDocument>            
+            <Paragraph TextAlignment="Center" FontSize="16pt">                
+                <Bold>Program Overview</Bold>                
+            </Paragraph>
+
+            <Paragraph TextAlignment="Justify" FontSize="10pt">
+                The legend generator is a ArcMap 
+                program extension and installable tool into the ArcMap 
+                graphical user interface. It is written in C#.NET and ArcObjects 
+                and is freely usable as "Free Software" (see license agreement), but not as "Open Source Software". 
+                The functionality of the tool was designed particularly to the requirements 
+                of traditional „geological cartography“. Only from one legend table, which containes 
+                all symbol names, a legend can be created graphically in the page layout of ArcMap. Using the 
+                same legend table ArcMap layers become symbolized. Symbol definitions can be 
+                saved thereby originally and only once in the legend table. ArcMap mxd's or layer files 
+                in all variations and versions are no longer necessary for the graphical representation of 
+                a geological map. A complete map can be copied thereby by an editor at the next in one Geodatabase file (mdb file).
+            </Paragraph>
+            
+           
+
+            <Paragraph TextAlignment="Justify">                
+                <Italic>
+                    <Bold>Features:</Bold>
+                </Italic>               
+            </Paragraph>
+
+            <Paragraph TextAlignment="Justify">
+                <Bold>1. Create the legend template:</Bold>
+                <LineBreak/>
+                The legend generator takes graphic elements in the page layout for sketch the construction of the legend. 
+                Thus the legend template can be arranged graphically on the own needs. e.g. own legend box size, 
+                red heading 2 right positioned, or dashed legend box outline, zigzag line for the line symbols, 
+                position of the label etc.
+                <LineBreak/>
+                For creating a legend template a collection of following sketch elements must exist in the reference style:
+                <LineBreak/>
+                legend box in fill symbols,
+                <LineBreak/>
+                marker in marker symbols,
+                <LineBreak/>
+                line and bracketline in line symbols,
+                <LineBreak/>
+                headings 1 to 3 and bracket text and „graphics “- text and
+                <LineBreak/>
+                legend text and label in text symbols.
+            </Paragraph>        
+
+            <Paragraph >
+                <Bold>2. Draw the legend:</Bold>
+                <LineBreak/>
+                The legend generator opens the indicated legend table sorted by sort field, 
+                and opens it as SQL query filtered, if this were defined. 
+                For each data record (line) now a legend position is provided like a clon of the legend template. 
+                By entries in the field L_GROUP packed, combined or by entries in the field L_GRAPHICS completely 
+                or partly replaced by legend graphics. Headings and brackets are set again or terminated 
+                by current comparisons of preceding cell contents. 
+                Zero entries (no cell value) cannot be processed, and are therefore represented by „#“. 
+                <LineBreak/>
+                <LineBreak/>
+                <Bold>Tip:</Bold> The legend generator draws each legend position, which is present as line in the legend table, 
+                after the sort sequence into the layout. But not if it was eliminated by an attribute query, 
+                or a spatial query (considering only visible data content).
+            </Paragraph>
+            
+            <Paragraph>
+                <Bold>3. Create a table for style dump:</Bold>
+                <LineBreak/>
+                With the function „style dump table“ a legend table for the indicated reference 
+                style can be produced. A copy of the style file (mdb file) is reduced to the symbol 
+                tables and stored compressed into a path directory, which you can define during the 
+                style-dump process in a prompted window. The personal geodatabase saved as e.g. 
+                „tmp_9028284.mdb “contains the generated legend table. Now with the legend generator 
+                can be drawn in the page layout.
+            </Paragraph> 
+            
+            <Paragraph>
+                Click on
+                <Hyperlink NavigateUri="http://www.geologie.ac.at/">Legend Generator</Hyperlink>
+                for information about the LegendGenerator!
+            </Paragraph>              
+        </FlowDocument> 
+    </FlowDocumentReader>
+</UserControl>

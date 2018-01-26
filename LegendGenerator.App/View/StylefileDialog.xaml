@@ -1,0 +1,59 @@
+﻿<Window x:Class="LegendGenerator.App.View.StylefileDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
+        Title="Processing..."
+        Width="460"
+        Height="242"
+       WindowStartupLocation="CenterScreen"
+        Background="Transparent" WindowStyle="None" WindowState="Normal"
+        AllowsTransparency="True"
+        Opacity="0.9"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ShowInTaskbar="False" Activated="Window_Activated" >
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Skins/Backgrounds.xaml"/>
+                <ResourceDictionary Source="../Skins/Graphics.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border CornerRadius="12,12,12,12"
+          BorderBrush="#FF020202"
+          BorderThickness="0,0,0,0"
+          Height="Auto">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Offset="0.0" Color="AliceBlue" />
+                <GradientStop Offset="1.0" Color="LightSteelBlue" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Canvas>
+            <!--Close button-->
+            <Button Canvas.Left="412" Canvas.Top="6" Height="0" Width="0" Click="Button_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Canvas>
+                            <Rectangle Width="15" Height="15" Stroke="Black" RadiusX="3" RadiusY="3">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush x:Name="myAnimatedBrush" Color="Red" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Line X1="3" Y1="3" X2="12" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                            <Line X1="12" Y1="3" X2="3" Y2="12" Stroke="White" StrokeThickness="2"></Line>
+                        </Canvas>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Canvas.Left="192" Canvas.Top="115" Content="{x:Static Member=resx:Resource.btnStylefileAdd}" Height="23" Name="btnStylefileAdd" Width="238" FontWeight="Bold" IsEnabled="False" Click="btnStylefileAdd_Click" />
+            <Label Canvas.Left="6" Canvas.Top="78" Content="{x:Static Member=resx:Resource.lblStylefileLabel2}" Height="28" Name="lblStylefileLabel2" Width="129" />
+            <TextBox Canvas.Left="192" Canvas.Top="78" Height="23" Name="txtStyleFilePath" Width="238" TextChanged="txtStyleFilePath_TextChanged" />
+            <Button Canvas.Left="141" Canvas.Top="78" Content="{DynamicResource ResourceKey=imgLoad}" Height="23" Name="btnSearchStylefile" Width="30" Click="btnSearchStylefile_Click" />
+            <Label Canvas.Left="6" Canvas.Top="25" Content="{x:Static Member=resx:Resource.lblStylefileLabel1}" Height="28" Name="lblStylefileLabel1" FontSize="14" FontWeight="Bold" />
+        </Canvas>
+
+    </Border>
+</Window>

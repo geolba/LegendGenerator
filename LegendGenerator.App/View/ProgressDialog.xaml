@@ -1,0 +1,63 @@
+﻿<Window x:Class="LegendGenerator.App.View.ProgressDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Processing..."
+        Width="400"
+        Height="180"
+        WindowStartupLocation="CenterOwner"
+        AllowsTransparency="True"
+        Opacity="1"
+        WindowStyle="None"
+        Background="{x:Null}"
+        ShowInTaskbar="False" Topmost="True">
+
+    <Border CornerRadius="12,12,12,12"
+          BorderBrush="#FF020202"
+          BorderThickness="0,0,0,0"
+          Height="Auto">
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.874,1.197"
+                           StartPoint="0.126,-0.197">
+                <GradientStop Color="#FF030404"
+                      Offset="0" />
+                <GradientStop Color="#FF000000"
+                      Offset="1" />
+                <GradientStop Color="#FFABB8B9"
+                      Offset="0.304" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <ProgressBar Margin="8,0,12,52"
+                   Name="Progress"
+                   Foreground="#FFFFA609"
+                   VerticalAlignment="Bottom"
+                   Height="25"  />
+            <!--<Image Margin="10,8,0,0"
+             x:Name="imgStatus"
+             Stretch="None"
+             Source="/Progress.png"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Left"
+             Width="150"
+             Height="150"
+             Opacity="0.715" />-->
+            <TextBlock Margin="130,8,10,0"
+                 Text="The legende-generating process is in progress. Please wait..."
+                 x:Name="txtDialogMessage"
+                 VerticalAlignment="Top"
+                 Height="48"
+                 Foreground="#FFCCCCCC"
+                 FontSize="14"
+                 TextWrapping="Wrap" />
+            <DockPanel Height="25"
+                 VerticalAlignment="Bottom"
+                 Margin="10,0,12,13">
+                <Label x:Name="StatusText"
+               Foreground="#FFCCCCCC"
+               Content="Work in progress. Please stand by..." />
+                <Button Content="Cancel" Height="23" Name="btnCancel" Width="90" Click="btnCancel_Click" />
+            </DockPanel>
+        </Grid>
+    </Border>
+</Window>
+

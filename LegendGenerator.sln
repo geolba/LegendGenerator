@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegendGenerator", "LegendGenerator\LegendGenerator.csproj", "{6691008C-D489-49F0-BF12-F3934685B1DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B29F1527-6B8F-49D6-8C4A-F2D4C1BFF92C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE.md = LICENSE.md
+		notes.txt = notes.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegendGenerator.App", "LegendGenerator.App\LegendGenerator.App.csproj", "{4A152935-2A41-4012-BCF8-BD43D83BEAAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6691008C-D489-49F0-BF12-F3934685B1DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6691008C-D489-49F0-BF12-F3934685B1DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6691008C-D489-49F0-BF12-F3934685B1DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6691008C-D489-49F0-BF12-F3934685B1DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A152935-2A41-4012-BCF8-BD43D83BEAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A152935-2A41-4012-BCF8-BD43D83BEAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A152935-2A41-4012-BCF8-BD43D83BEAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A152935-2A41-4012-BCF8-BD43D83BEAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

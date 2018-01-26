@@ -1,0 +1,53 @@
+﻿<UserControl x:Class=" LegendGenerator.App.View.Help.LegendGeneratorCopyright"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"	   
+	    Width="520" Height="581"
+	    Foreground="Blue" Margin="1">
+    
+    <FlowDocumentReader ViewingMode="Page"  Margin="1" FontFamily="Calibri" Foreground="Black">        
+        <FlowDocument>            
+            <Paragraph TextAlignment="Center" FontSize="16pt">
+                Copyright Information
+            </Paragraph>
+            
+            <Paragraph TextAlignment="Center" FontSize="11pt">
+                © 2011 by "Geologische Bundesanstalt Wien"
+            </Paragraph>
+            
+            <Paragraph TextAlignment="Justify"  FontSize="10pt">
+                Copyright 2003-2011 Geologische Bundesanstalt Wien
+                All rights reserved under the copyright laws of Austria.
+                You may freely redistribute and use this software, ttf-Fonts, ArcGIS-Styles
+                with or without modification.
+            </Paragraph>
+
+            <Paragraph TextAlignment="Justify"  FontSize="12pt">
+                Disclaimer: THE software, ttf-Fonts, ArcGIS-Styles ARE PROVIDED "AS IS" 
+                AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING THE IMPLIED WARRANTIES 
+                OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+                IN NO EVENT SHALL Geologische Bundesanstalt Wien OR CONTRIBUTORS BE LIABLE 
+                FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+                DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+                SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) SUSTAINED 
+                BY YOU OR A THIRD PARTY, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER 
+                IN CONTRACT, STRICT LIABILITY, OR TORT ARISING IN ANY WAY OUT OF THE USE OF THIS 
+                software, ttf-Fonts, ArcGIS-Styles, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+            </Paragraph>
+
+            <Paragraph TextAlignment="Justify" FontSize="10pt">
+               
+                For additional information contact: Geologische Bundesanstalt Wien
+                <LineBreak/>
+                Schiegl, FA Kartografie und Grafik
+                <LineBreak/>
+                 Email: martin.schiegl@geologie.ac.at
+
+            </Paragraph>
+
+            <BlockUIContainer>                
+                <!-- <Image Source="/Images/SuspendedAnimation.png" Width="500"/>     -->           
+            </BlockUIContainer>
+            
+        </FlowDocument>        
+    </FlowDocumentReader>    
+</UserControl>
