@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                 
+                     xmlns:vm="clr-namespace:LegendGenerator.App.ViewModel"
+                     xmlns:viewn="clr-namespace:LegendGenerator.App.View.Help">
+
+   
+    <DataTemplate DataType="{x:Type vm:OverviewViewModel}">     
+            <viewn:OverviewView />    
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type vm:CopyrightViewModel}">       
+            <viewn:CopyrightView />       
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:XpsHelpViewModel}">
+        <viewn:XpsHelp />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:XpsHelpEnViewModel}">
+        <viewn:XpsHelpEn />
+    </DataTemplate>
+
+</ResourceDictionary>

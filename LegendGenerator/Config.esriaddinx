@@ -2,11 +2,11 @@
   <Name>LegendGenerator</Name>
   <AddInID>{cf149dbd-0936-4bad-8094-370870cf24ed}</AddInID>
   <Description>Creates a map legend out of a legend table.</Description>
-  <Version>5.14</Version>
+  <Version>5.15</Version>
   <Image>Images\LegendGenerator.png</Image>
   <Author>Arno Kaimbacher</Author>
   <Company>Geologische Bundesanstalt Wien</Company>
-  <Date>15.01.2018</Date>
+  <Date>02.02.2018</Date>
   <Targets>   
     <Target name="Desktop" version="10.3" />
   </Targets>

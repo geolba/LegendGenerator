@@ -6,9 +6,9 @@ namespace LegendGenerator.App.View.Help
     /// <summary>
     /// Interaktionslogik für LegendGeneratorCopyright.xaml
     /// </summary>
-    public partial class LegendGeneratorCopyright : UserControl
+    public partial class CopyrightView : UserControl
     {
-        public LegendGeneratorCopyright()
+        public CopyrightView()
         {
             InitializeComponent();
         }

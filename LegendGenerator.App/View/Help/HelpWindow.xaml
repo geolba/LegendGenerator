@@ -1,0 +1,68 @@
+﻿<Window x:Class=" LegendGenerator.App.View.Help.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	    Title="LegendGenerator Help"                
+	    Height="765" Width="1000"
+	    ShowInTaskbar="False" 
+	    WindowStartupLocation="CenterScreen"
+        xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" 
+        xmlns:vm="clr-namespace:LegendGenerator.App.ViewModel"
+	    Foreground="Blue" Icon="/LegendGenerator.App;component/Skins/Images/gba.png" >
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>              
+                <ResourceDictionary Source="/LegendGenerator.App;component/Skins/ViewDataTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+                        
+            <!-- WIZARD STEP TEMPLATE -->
+            <DataTemplate x:Key="wizardStepTemplate">
+                <Border x:Name="bdOuter" BorderBrush="Black" BorderThickness="0,0,1,1" CornerRadius="12" Margin="1,1,1,12" Opacity="0.25" SnapsToDevicePixels="True">
+                    <!--<Border x:Name="bdInner" Background="#FFFEFEFE" BorderBrush="Brown" BorderThickness="2,2,1,1" CornerRadius="12" Padding="2">-->
+                        <TextBlock x:Name="txt" Margin="2,2,2,2" Text="{Binding Path=DisplayName}"></TextBlock>
+                    <!--</Border>-->
+                </Border>
+              
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsCurrentPage}" Value="True">
+                        <Setter TargetName="txt" Property="FontWeight" Value="Bold" />
+                        <!--<Setter TargetName="bdInner" Property="Background" Value="BurlyWood" />-->
+                        <Setter TargetName="bdOuter" Property="Opacity" Value="1" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+            
+            <!--Global View Model Locator-->
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Content>
+        <Grid>            
+            <Grid.ColumnDefinitions>                
+                <ColumnDefinition Width="20*" />                
+                <ColumnDefinition Width="Auto" />                
+                <ColumnDefinition Width="80*" />                
+            </Grid.ColumnDefinitions>
+
+            <!--<TreeView x:Name="tree" FontSize="10pt" SelectedItemChanged="HelponselectedItemChanged">
+                <TreeViewItem Header="Copyright Information" Tag="LegendGeneratorCopyright"/>
+                <TreeViewItem Header="Program Overview" Tag="LegendGeneratorOverView" />              
+                <TreeViewItem Header="User Manual" Tag="LegendGeneratorXpsHelp"/>
+                <TreeViewItem Header="English User Manual" Tag="LegendGeneratorXpsHelpEn" IsSelected="True"/>
+            </TreeView>-->
+            <!-- WIZARD STEP LISTING -->
+            <HeaderedContentControl x:Name="tree">
+                <ListBox ItemsSource="{Binding Path=Views}" ItemTemplate="{StaticResource wizardStepTemplate}" SelectedItem="{Binding SelectedView, Mode=TwoWay}" >
+                </ListBox>
+            </HeaderedContentControl>
+
+            <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+            <ContentControl Name="frame" Grid.Column="2" Content="{Binding Path=SelectedView, Mode=TwoWay}" />            
+        </Grid>        
+    </Window.Content>    
+</Window>

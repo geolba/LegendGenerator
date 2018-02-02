@@ -13,11 +13,11 @@ namespace LegendGenerator.App.View.Help
     /// <summary>
     /// Interaktionslogik für LegendGeneratorXpsHelpEn.xaml
     /// </summary>
-    public partial class LegendGeneratorXpsHelpEn : UserControl
+    public partial class XpsHelpEn : UserControl
     {
        XpsDocument doc;
 
-        public LegendGeneratorXpsHelpEn()
+        public XpsHelpEn()
         {
             InitializeComponent();
         }

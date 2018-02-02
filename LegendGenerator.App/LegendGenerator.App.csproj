@@ -87,7 +87,23 @@
     <Reference Include="ESRI.ArcGIS.System, Version=10.3.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -95,6 +111,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -115,8 +135,16 @@
     <Compile Include="Utils\CustomStringToColorConverter.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Utils\ValidationAttribute.cs" />
-    <Compile Include="View\Help\LegendGeneratorXpsHelpEn.xaml.cs">
-      <DependentUpon>LegendGeneratorXpsHelpEn.xaml</DependentUpon>
+    <Compile Include="ViewModel\Help\XpsHelpEnViewModel.cs" />
+    <Compile Include="ViewModel\Help\XpsHelpViewModel.cs" />
+    <Compile Include="ViewModel\Help\HelpViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Help\CopyrightViewModel.cs" />
+    <Compile Include="ViewModel\Help\OverviewViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\ViewVM.cs" />
+    <Compile Include="View\Help\XpsHelpEn.xaml.cs">
+      <DependentUpon>XpsHelpEn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\FormularData.cs" />
     <Compile Include="Model\IDataService.cs" />
@@ -139,29 +167,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorCopyright.xaml">
+    <Page Include="View\Help\CopyrightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorHelp.xaml">
+    <Page Include="View\Help\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorOverView.xaml">
+    <Page Include="View\Help\OverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorXpsHelp.xaml">
+    <Page Include="View\Help\XpsHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorXpsHelpEn.xaml">
+    <Page Include="View\Help\XpsHelpEn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\ViewDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ProgressDialog.xaml">
       <SubType>Designer</SubType>
@@ -185,17 +217,17 @@
     <Compile Include="View\FortlaufendeNrDialog.xaml.cs">
       <DependentUpon>FortlaufendeNrDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorCopyright.xaml.cs">
-      <DependentUpon>LegendGeneratorCopyright.xaml</DependentUpon>
+    <Compile Include="View\Help\CopyrightView.xaml.cs">
+      <DependentUpon>CopyrightView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorHelp.xaml.cs">
-      <DependentUpon>LegendGeneratorHelp.xaml</DependentUpon>
+    <Compile Include="View\Help\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorOverView.xaml.cs">
-      <DependentUpon>LegendGeneratorOverView.xaml</DependentUpon>
+    <Compile Include="View\Help\OverviewView.xaml.cs">
+      <DependentUpon>OverviewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorXpsHelp.xaml.cs">
-      <DependentUpon>LegendGeneratorXpsHelp.xaml</DependentUpon>
+    <Compile Include="View\Help\XpsHelp.xaml.cs">
+      <DependentUpon>XpsHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="LayoutCreator.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -294,7 +326,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

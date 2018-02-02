@@ -17,6 +17,7 @@ using LegendGenerator.App.Model;
 using LegendGenerator.App.Utils;
 using System.Windows.Threading;
 using LegendGenerator.App.View;
+using LegendGenerator.App.ViewModel;
 using System.Linq;
 
 namespace LegendGenerator.App
@@ -39,8 +40,6 @@ namespace LegendGenerator.App
         //Objekt zur Klasse mit den GIS-Funktionalitäten!!!
         LayoutCreator layoutCreator;
         protected AboutDialog aboutWindow;
-
-        private FormularData _formData;
 
         #region esri event member variables:
 
@@ -79,19 +78,17 @@ namespace LegendGenerator.App
         }
 
         /// <summary>
-        /// Returns the cup of coffee ordered by the customer.
-        /// If this returns null, the user cancelled the order.
+        /// Returns the formdata model.
+        /// If this returns null, the user cancelled the input.
         /// </summary>
         public FormularData FormData
         {
             get
             {
-                return this._formData;
-            }
-            set
-            {
-                this. _formData = value;               
-            }
+                //return this._formData;                
+                MainViewModel viewmodel = (this.Resources["Locator"] as ViewModelLocator).Main;
+                return viewmodel.FormData;
+            }           
         }
 
         #endregion
@@ -103,11 +100,14 @@ namespace LegendGenerator.App
             this._isInitializing = true;
             InitializeComponent();
             this._isInitializing = false;
-                       
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\FormData.xml");           
-            FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);           
-            this.FormData = formData;
-            this.DataContext = this.FormData;
+            //this.DataContext = (App.Current.Resources["Locator"] as ViewModelLocator).Main;
+            this.DataContext = (this.Resources["Locator"] as ViewModelLocator).Main;
+           
+            //string folder = Environment.CurrentDirectory;
+            //string path = Path.Combine(folder, @"Data\FormData.xml");
+            //FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);
+            //this.FormData = formData;
+            //this.DataContext = this.FormData;
         }
         
         public MainWindow(IApplication application)
@@ -120,6 +120,7 @@ namespace LegendGenerator.App
             this._isInitializing = true;
             InitializeComponent();           
             this._isInitializing = false;
+            this.DataContext = (this.Resources["Locator"] as ViewModelLocator).Main;
 
             m_application = application;//?? throw new Exception("Hook helper is not initialized");//for the communication with the ArcGIS-Application!         
             layoutCreator = new LayoutCreator(this, m_application);//um auf die GIS-Methoden zugreifen zu können
@@ -138,11 +139,11 @@ namespace LegendGenerator.App
             }
             Resource.Culture = new System.Globalization.CultureInfo(language);
            
-            string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);         
-            string path = Path.Combine(folder, @"Data\FormData.xml");           
-            FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);          
-            this.FormData = formData;
-            this.DataContext = this.FormData;
+            //string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);         
+            //string path = Path.Combine(folder, @"Data\FormData.xml");           
+            //FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);          
+            //this.FormData = formData;
+            //this.DataContext = this.FormData;
         }
 
         #endregion
@@ -347,107 +348,6 @@ namespace LegendGenerator.App
            
             wd.Close();
         }
-
-        private void MnuAppLoad_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog oXml = new OpenFileDialog
-            {
-                Title = "Select XML-ConfigFile",
-                Filter = "XML (*.xml)|*.xml"
-            };
-            //oDlg.RestoreDirectory = true;
-            string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-            oXml.InitialDirectory = dir;
-
-            // Show open file dialog box
-            Nullable<bool> result = oXml.ShowDialog();
-            if (result == true)
-            {
-                this.pfadKonfigurationsdatei = oXml.FileName.ToString();
-            }
-            // Load the form object from the existing XML file (if any)...
-            if (File.Exists(this.pfadKonfigurationsdatei) == true)
-            {
-                // Load the form object from the XML file using our custom class...
-                FormularData formdata = ObjectXmlSerializer<FormularData>.Load(this.pfadKonfigurationsdatei);
-
-                if (formdata == null)
-                {
-                    MessageBox.Show("Unable to load a formular data object from file '" + this.pfadKonfigurationsdatei + "'!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else  // Load form properties into form data...
-                {
-                    //this.LoadCustomerIntoForm(formdata);
-                    this.FormData.DeepCopy(formdata);               
-                    this.Title = this.pfadKonfigurationsdatei;
-                }
-            }
-            else
-            {
-                MessageBox.Show(this.CreateFileDoesNotExistMsg(), "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-
-        private void MnuAppSave_Click(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(this.pfadKonfigurationsdatei) == true)
-            {
-                // Create form object based on Form values.
-                FormularData formdata = this.FormData;// this.CreateFormularData();
-
-                //Save form object to XML file using our ObjectXMLSerializer class...
-                try
-                {
-                    ObjectXmlSerializer<FormularData>.Save(formdata, this.pfadKonfigurationsdatei);                    
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Unable to save formular data object!" + Environment.NewLine + Environment.NewLine + ex.Message,
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                this.MnuAppSaveNew_Click(sender, e);
-            }       
-            
-        }
-
-        //save as the projectfile:
-        private void MnuAppSaveNew_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.SaveFileDialog sXml = new Microsoft.Win32.SaveFileDialog();
-            string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-            sXml.InitialDirectory = dir;
-            sXml.Title = "Select a folder for creating a new projectfile!";
-            sXml.Filter = "XML (*.xml)|*.xml";
-
-            // pressed OK:
-            if (sXml.ShowDialog() == true)
-            {
-                this.pfadKonfigurationsdatei = sXml.FileName.ToString();                
-            }
-
-            //if (File.Exists(this.txtKonfigurationsdatei.Text))
-            if (this.pfadKonfigurationsdatei != String.Empty)
-            {
-                // Create customer object based on Form values.
-                FormularData formdata = this.FormData;//this.CreateFormularData();
-
-                //Save form object to XML file using our ObjectXMLSerializer class...
-                try
-                {
-                    ObjectXmlSerializer<FormularData>.Save(formdata, this.pfadKonfigurationsdatei);                                   
-                    this.Title = "Legend Generator 5.0 für ArcMap 10.0 - " + this.pfadKonfigurationsdatei;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Unable to save formular data object!" + Environment.NewLine + Environment.NewLine + ex.Message,
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-
-        }
               
         private void MnuAppClose_Click(object sender, RoutedEventArgs e)
         {
@@ -631,10 +531,10 @@ namespace LegendGenerator.App
             
         private void MnuAppHelp_Click(object sender, RoutedEventArgs e)
         {
-            LegendGeneratorHelp lgh = null;
+            HelpWindow lgh = null;
             try
             {
-                lgh = new LegendGeneratorHelp
+                lgh = new HelpWindow
                 {
                     //lgh.ShowDialog();//modal, aber bei der Hilfe nicht erwünscht!             
                     Owner = this
