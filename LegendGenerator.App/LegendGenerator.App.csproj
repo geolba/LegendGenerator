@@ -135,10 +135,16 @@
     <Compile Include="Utils\CustomStringToColorConverter.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Utils\ValidationAttribute.cs" />
+    <Compile Include="ViewModel\Help\XpsHelpEnViewModel.cs" />
+    <Compile Include="ViewModel\Help\XpsHelpViewModel.cs" />
+    <Compile Include="ViewModel\Help\HelpViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Help\CopyrightViewModel.cs" />
+    <Compile Include="ViewModel\Help\OverviewViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\Help\LegendGeneratorXpsHelpEn.xaml.cs">
-      <DependentUpon>LegendGeneratorXpsHelpEn.xaml</DependentUpon>
+    <Compile Include="ViewModel\ViewVM.cs" />
+    <Compile Include="View\Help\XpsHelpEn.xaml.cs">
+      <DependentUpon>XpsHelpEn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\FormularData.cs" />
     <Compile Include="Model\IDataService.cs" />
@@ -161,29 +167,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorCopyright.xaml">
+    <Page Include="View\Help\CopyrightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorHelp.xaml">
+    <Page Include="View\Help\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorOverView.xaml">
+    <Page Include="View\Help\OverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorXpsHelp.xaml">
+    <Page Include="View\Help\XpsHelp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Help\LegendGeneratorXpsHelpEn.xaml">
+    <Page Include="View\Help\XpsHelpEn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Skins\ViewDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ProgressDialog.xaml">
       <SubType>Designer</SubType>
@@ -207,17 +217,17 @@
     <Compile Include="View\FortlaufendeNrDialog.xaml.cs">
       <DependentUpon>FortlaufendeNrDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorCopyright.xaml.cs">
-      <DependentUpon>LegendGeneratorCopyright.xaml</DependentUpon>
+    <Compile Include="View\Help\CopyrightView.xaml.cs">
+      <DependentUpon>CopyrightView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorHelp.xaml.cs">
-      <DependentUpon>LegendGeneratorHelp.xaml</DependentUpon>
+    <Compile Include="View\Help\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorOverView.xaml.cs">
-      <DependentUpon>LegendGeneratorOverView.xaml</DependentUpon>
+    <Compile Include="View\Help\OverviewView.xaml.cs">
+      <DependentUpon>OverviewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Help\LegendGeneratorXpsHelp.xaml.cs">
-      <DependentUpon>LegendGeneratorXpsHelp.xaml</DependentUpon>
+    <Compile Include="View\Help\XpsHelp.xaml.cs">
+      <DependentUpon>XpsHelp.xaml</DependentUpon>
     </Compile>
     <Compile Include="LayoutCreator.cs" />
     <Compile Include="MainWindow.xaml.cs">

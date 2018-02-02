@@ -22,7 +22,7 @@ namespace LegendGenerator.App.ViewModel
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
-        public ViewModelLocator()
+        static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -38,6 +38,13 @@ namespace LegendGenerator.App.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>(true);
+
+            SimpleIoc.Default.Register<CopyrightViewModel>(true);
+            SimpleIoc.Default.Register<OverviewViewModel>(true);
+            SimpleIoc.Default.Register<XpsHelpViewModel>(true);
+            SimpleIoc.Default.Register<XpsHelpEnViewModel>(true);
+            SimpleIoc.Default.Register<HelpViewModel>(true);
+          
         }
 
         public MainViewModel Main
@@ -47,7 +54,15 @@ namespace LegendGenerator.App.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public HelpViewModel Help
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<HelpViewModel>();
+            }
+        }
+       
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

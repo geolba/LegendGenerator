@@ -531,10 +531,10 @@ namespace LegendGenerator.App
             
         private void MnuAppHelp_Click(object sender, RoutedEventArgs e)
         {
-            LegendGeneratorHelp lgh = null;
+            HelpWindow lgh = null;
             try
             {
-                lgh = new LegendGeneratorHelp
+                lgh = new HelpWindow
                 {
                     //lgh.ShowDialog();//modal, aber bei der Hilfe nicht erwünscht!             
                     Owner = this

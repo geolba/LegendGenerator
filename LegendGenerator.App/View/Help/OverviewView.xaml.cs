@@ -6,9 +6,9 @@ namespace LegendGenerator.App.View.Help
     /// <summary>
     /// Interaktionslogik für LegendGeneratorOverView.xaml
     /// </summary>
-    public partial class LegendGeneratorOverView : UserControl
+    public partial class OverviewView : UserControl
     {
-        public LegendGeneratorOverView()
+        public OverviewView()
         {
             InitializeComponent();
         }
