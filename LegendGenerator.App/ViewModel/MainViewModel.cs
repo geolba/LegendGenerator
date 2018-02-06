@@ -6,6 +6,9 @@ using LegendGenerator.App.Utils;
 using System.Windows;
 using Microsoft.Win32;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections.Generic;
+using System.Linq;
+using LegendGenerator.App.View;
 
 namespace LegendGenerator.App.ViewModel
 {
@@ -22,14 +25,17 @@ namespace LegendGenerator.App.ViewModel
         private string _title;
         private string _pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;
         private FormularData _formData;
+        private readonly IDataService _dataService;
 
         #endregion
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(IDataService dataService)
         {
+            _dataService = dataService;
+
             if (IsInDesignMode)
             {
                 // Code runs in Blend --> create design time data.
@@ -40,17 +46,27 @@ namespace LegendGenerator.App.ViewModel
                 this.FormData = formData;
             }
             else
-            {
-                // Code runs "for real"
-                //string folder = Environment.CurrentDirectory;
-                string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string path = Path.Combine(folder, @"Data\FormData.xml");
-                FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);
-                this.FormData = formData;
-
+            {      
+                _dataService.GetData(
+                delegate (FormularData formData, Exception error)
+                {
+                    if (error != null)
+                    {
+                        // Report error here
+                        //to do sett error message on property
+                        return;
+                    }
+                    this.FormData = formData;
+                });
+               
+                //define viewmodel commands
                 LoadProjectCommand = new RelayCommand(MnuAppLoad_Click);
                 SaveProjectCommand = new RelayCommand(MnuAppSave_Click);
                 SaveAsProjectCommand = new RelayCommand(MnuAppSaveNew_Click);
+                LoadAccessDbCommand = new RelayCommand(BtnLoadAccessDb_Click);
+                LoadAccessTablesCommand = new RelayCommand(BtnLoadAccessTables_Click);
+                LoadSqlTablesCommand = new RelayCommand(BtnLoadSqlServerTables_Click);
+                CloseCommand = new RelayCommand(Close);
             }
         }
 
@@ -59,6 +75,10 @@ namespace LegendGenerator.App.ViewModel
         public RelayCommand LoadProjectCommand { get; private set; }
         public RelayCommand SaveProjectCommand { get; private set; }
         public RelayCommand SaveAsProjectCommand { get; private set; }
+        public RelayCommand LoadAccessDbCommand { get; private set; }
+        public RelayCommand LoadAccessTablesCommand { get; private set; }
+        public RelayCommand LoadSqlTablesCommand { get; private set; }
+        public RelayCommand CloseCommand { get; private set; }
 
         #endregion
 
@@ -84,7 +104,9 @@ namespace LegendGenerator.App.ViewModel
                 base.RaisePropertyChanged("Title");
             }
         }
-        
+
+        #region private helper methods
+
         private void MnuAppLoad_Click()
         {
             Microsoft.Win32.OpenFileDialog oXml = new OpenFileDialog
@@ -150,8 +172,7 @@ namespace LegendGenerator.App.ViewModel
             }
 
         }
-
-        //save as the projectfile:
+               
         private void MnuAppSaveNew_Click()
         {
             Microsoft.Win32.SaveFileDialog sXml = new Microsoft.Win32.SaveFileDialog();
@@ -187,15 +208,106 @@ namespace LegendGenerator.App.ViewModel
 
         }
 
-        #region private helper methods
+        private void BtnLoadAccessDb_Click()
+        {
+            OpenFileDialog oDlg = new OpenFileDialog
+            {
+                Title = "Select Access Database",
+                Filter = "MDB (*.Mdb)|*.mdb|" +
+                           "ACCDB (*.Accdb)|*.accdb"
+            };
+            //oDlg.RestoreDirectory = true;
+            string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+            oDlg.InitialDirectory = dir;
+
+            // Show open file dialog box
+            Nullable<bool> result = oDlg.ShowDialog();
+
+            // OK wurde gedrückt:
+            if (result == true)
+            {
+                this.FormData.AccessDatabase = oDlg.FileName.ToString();
+            }
+        }
+
+        private void BtnLoadAccessTables_Click()
+        {
+            if (File.Exists(this.FormData.AccessDatabase) == true)
+            {
+                IDataService controller = new DataService();
+                List<string> tables = controller.GetTables(this.FormData.AccessDatabase);
+                this.FormData.Tables = tables;
+                //FormData.Tables.Clear();
+                //tables.ForEach(this.FormData.Tables.Add);
+                FormData.Table = tables.FirstOrDefault();
+            }
+            else
+            {
+                MessageBox.Show("Please define a correct Access database!", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnLoadSqlServerTables_Click()
+        {
+            WaitDialog wd = null;
+            try
+            {
+                wd = new WaitDialog();
+                wd.Show();//not modal
+            }
+            catch
+            {
+                MessageBox.Show("Please restart the about window!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd.Close();
+            }
+
+            try
+            {
+                IDataService controller = new DataService();
+                List<string> tables = controller.GetSqlServerTables(this.FormData.SqlServer, this.FormData.ServerInstance, this.FormData.ServerDatenbank, 
+                    this.FormData.ServerVersion, this.FormData.ServerUser, this.FormData.ServerPasswort);               
+                this.FormData.Tables = tables;
+                FormData.Table = tables.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The legend table wasn't defined or the session has been canceled! " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //this.staLblMessage.Content = "The legend table wasn't defined or the session has been canceled!";
+            }
+
+            wd.Close();
+        }
+
+        private void Close()
+        {            
+            this.RaiseRequestClose(new FeedbackEventArgs(true, false));
+        }
 
         private string CreateFileDoesNotExistMsg()
         {
             return "The example XML file '" + _pfadKonfigurationsdatei + "' does not exist." + "\n\n" +
             "To create the example XML file, enter formular data details, then click the 'Save' button.";
-        }          
+        }
 
-        #endregion                
+        #endregion
+
+        #region events
+
+        public event EventHandler<FeedbackEventArgs> RequestClose;
+        /// <summary>
+        /// Raised when the wizard should be removed from the UI.
+        /// </summary>
+        void RaiseRequestClose(FeedbackEventArgs e)
+        {
+            EventHandler<FeedbackEventArgs> handler = this.RequestClose;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        #endregion // Events            
 
     }
 }

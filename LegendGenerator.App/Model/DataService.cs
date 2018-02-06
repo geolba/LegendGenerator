@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
 using ESRI.ArcGIS.Geodatabase;
 using System.Data.OleDb;
 using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.esriSystem;
-using System;
+using LegendGenerator.App.Utils;
 using System.Windows;
-
 
 namespace LegendGenerator.App.Model
 {
@@ -14,9 +14,12 @@ namespace LegendGenerator.App.Model
     {
         public void GetData(Action<FormularData, Exception> callback)
         {
-            // Use this to connect to the actual data service
-            var item = new FormularData();
-            callback(item, null);
+            // Code runs "for real"
+            //string folder = Environment.CurrentDirectory;
+            string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string path = Path.Combine(folder, @"Data\FormData.xml");
+            FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);
+            callback(formData, null);
         }
 
         #region operations for access database
