@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"       
         xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
-        Title="Legend Generator 5.14 für ArcMap 10.3" 
+        Title="Legend Generator für ArcMap 10.3" 
         WindowStartupLocation="CenterScreen"
         Height="748" Width="740" Loaded="Window_Loaded"  
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -28,14 +28,14 @@
     </Window.Background>
 
 
-    <DockPanel x:Name="LayoutRoot"> <!--DataContext="{Binding Source={StaticResource Locator}, Path=Main}">-->
+    <DockPanel x:Name="LayoutRoot" d:DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="mnuFile" Header="{x:Static resx:Resource.mnuFile}"  >
                 <MenuItem x:Name="mnuAppSave" Header="{x:Static resx:Resource.mnuAppSave}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveProjectCommand}" Foreground="Black" FontWeight="Medium"  />
                 <MenuItem x:Name="mnuAppSaveNew" Header="{x:Static resx:Resource.mnuAppSaveNew}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveAsProjectCommand}" Foreground="Black" FontWeight="Medium"/>
                 <MenuItem x:Name="mnuAppLoad" Header="{x:Static resx:Resource.mnuAppLoad}"  Icon="{DynamicResource ResourceKey=imgLoad}" Command="{Binding LoadProjectCommand}" Foreground="Black" FontWeight="Medium" />
                 <Separator />
-                <MenuItem x:Name="mnuAppClose" Header="{x:Static resx:Resource.mnuAppClose}"  Icon="{DynamicResource ResourceKey=appClose}" Click="MnuAppClose_Click" Foreground="Black" FontWeight="Medium" />
+                <MenuItem x:Name="mnuAppClose" Header="{x:Static resx:Resource.mnuAppClose}"  Icon="{DynamicResource ResourceKey=appClose}" Command="{Binding CloseCommand}" Foreground="Black" FontWeight="Medium" />
             </MenuItem>
 
             <MenuItem x:Name="mnuEinstellungen" Header="{x:Static resx:Resource.mnuEinstellungen}"  >
@@ -44,7 +44,6 @@
                     <CheckBox x:Name="chkSpracheEnglisch" Content="{x:Static resx:Resource.chkSpracheEnglisch}" Checked="ChkSpracheEnglisch_Checked" Unchecked="ChkSpracheEnglisch_Unchecked" />
                 </MenuItem>
                 <MenuItem x:Name="mnuLoadStylefile" Header="{x:Static resx:Resource.mnuLoadStylefile}" Click="MnuLoadStylefile_Click" Icon="{DynamicResource ResourceKey=imgLoadStyleFile}" Foreground="Black" FontWeight="Medium"/>
-                <MenuItem x:Name="mnuResetPage"  Header="{x:Static resx:Resource.mnuResetPage}" Icon="{DynamicResource ResourceKey=imgRefresh}" Click="MnuResetPage_Click" Foreground="Black" FontWeight="Medium"/>
             </MenuItem>
 
             <MenuItem x:Name="mnuExport" Header="Export" >
@@ -83,8 +82,8 @@
                             <CheckBox x:Name="chkAccess" Content="{x:Static resx:Resource.chkAccess}" IsChecked="{Binding FormData.ChkAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Tag="True" Canvas.Left="12" Canvas.Top="14" />
                             <Label Canvas.Left="10" Canvas.Top="44" Content="{x:Static resx:Resource.lblAccessDatabase}"  x:Name="lblAccessDatabase"  Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="102" Canvas.Top="38" IsEnabled="{Binding FormData.ChkAccess}" x:Name="txtAccessDatabase" Width="171" Text="{Binding FormData.AccessDatabase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" FlowDirection="RightToLeft" />
-                            <Button Canvas.Left="279" Canvas.Top="38"  IsEnabled="{Binding FormData.ChkAccess}" Content="{DynamicResource imgLoad}"  x:Name="btnLoadAccessDb" Width="30" Click="BtnLoadAccessDb_Click" />
-                            <Button Canvas.Left="102" Canvas.Top="81" IsEnabled="{Binding FormData.ChkAccess}" Content="{x:Static resx:Resource.btnLoadAccessTables}" x:Name="btnLoadAccessTables" Width="171" Click="BtnLoadAccessTables_Click" />
+                            <Button Canvas.Left="279" Canvas.Top="38"  IsEnabled="{Binding FormData.ChkAccess}" Content="{DynamicResource imgLoad}"  x:Name="btnLoadAccessDb" Width="30" Command="{Binding LoadAccessDbCommand}" />
+                            <Button Canvas.Left="102" Canvas.Top="81" IsEnabled="{Binding FormData.ChkAccess}" Content="{x:Static resx:Resource.btnLoadAccessTables}" x:Name="btnLoadAccessTables" Width="171" Command="{Binding LoadAccessTablesCommand}" />
                         </Canvas>
                     </TabItem>
                     <TabItem Header="{x:Static resx:Resource.tabItemSde}" IsSelected="{Binding FormData.TabSde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemSde" Height="22" VerticalAlignment="Bottom">
@@ -110,7 +109,7 @@
                             <Label Canvas.Left="7" Canvas.Top="155" Content="{x:Static resx:Resource.lblVersion}"  x:Name="lblVersion" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="151"  IsEnabled="{Binding FormData.ChkSde}" x:Name="txtVersion" Width="160" Tag="SDE.DEFAULT" x:FieldModifier="public" Text="{Binding FormData.ServerVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Button Canvas.Left="100" Canvas.Top="176" IsEnabled="{Binding FormData.ChkSde}" Content="{x:Static resx:Resource.btnLoadSqlServerTables}" Height="23" x:Name="btnLoadSqlServerTables" Width="160" Click="BtnLoadSqlServerTables_Click" />
+                            <Button Canvas.Left="100" Canvas.Top="176" IsEnabled="{Binding FormData.ChkSde}" Content="{x:Static resx:Resource.btnLoadSqlServerTables}" Height="23" x:Name="btnLoadSqlServerTables" Width="160" Command="{Binding LoadSqlTablesCommand}" />
                         </Canvas>
                     </TabItem>
                 </TabControl>

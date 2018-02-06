@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Utils\AdornerBehavior.cs" />
     <Compile Include="Utils\CustomStringToColorConverter.cs" />
+    <Compile Include="Utils\Events.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Utils\ValidationAttribute.cs" />
     <Compile Include="ViewModel\Help\XpsHelpEnViewModel.cs" />

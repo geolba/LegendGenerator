@@ -31,8 +31,7 @@ namespace LegendGenerator.App
         private IActiveView pActiveView;
         private IMap pMap;
         
-        private string language;
-        private bool _isInitializing = false;
+        private string language;       
         private string pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;
 
         private string pfadSymbolDirectory;
@@ -96,18 +95,12 @@ namespace LegendGenerator.App
         #region constructor:
 
         public MainWindow()
-        {
-            this._isInitializing = true;
+        {           
             InitializeComponent();
-            this._isInitializing = false;
             //this.DataContext = (App.Current.Resources["Locator"] as ViewModelLocator).Main;
-            this.DataContext = (this.Resources["Locator"] as ViewModelLocator).Main;
-           
-            //string folder = Environment.CurrentDirectory;
-            //string path = Path.Combine(folder, @"Data\FormData.xml");
-            //FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);
-            //this.FormData = formData;
-            //this.DataContext = this.FormData;
+            var mainViewModel = (this.Resources["Locator"] as ViewModelLocator).Main;
+            this.DataContext = mainViewModel;
+            mainViewModel.RequestClose += this.OnViewModelRequestClose;
         }
         
         public MainWindow(IApplication application)
@@ -116,11 +109,11 @@ namespace LegendGenerator.App
             {
                 throw new Exception("Hook helper is not initialized");
             }
-
-            this._isInitializing = true;
-            InitializeComponent();           
-            this._isInitializing = false;
-            this.DataContext = (this.Resources["Locator"] as ViewModelLocator).Main;
+      
+            InitializeComponent();    
+            var mainViewModel = (this.Resources["Locator"] as ViewModelLocator).Main;
+            this.DataContext = mainViewModel;
+            mainViewModel.RequestClose += this.OnViewModelRequestClose;
 
             m_application = application;//?? throw new Exception("Hook helper is not initialized");//for the communication with the ArcGIS-Application!         
             layoutCreator = new LayoutCreator(this, m_application);//um auf die GIS-Methoden zugreifen zu können
@@ -138,12 +131,6 @@ namespace LegendGenerator.App
                 this.chkSpracheEnglisch.IsChecked = true;
             }
             Resource.Culture = new System.Globalization.CultureInfo(language);
-           
-            //string folder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);         
-            //string path = Path.Combine(folder, @"Data\FormData.xml");           
-            //FormularData formData = ObjectXmlSerializer<FormularData>.Load(path);          
-            //this.FormData = formData;
-            //this.DataContext = this.FormData;
         }
 
         #endregion
@@ -293,67 +280,7 @@ namespace LegendGenerator.App
         }
 
         #endregion
-
-        private void BtnLoadAccessDb_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog oDlg = new OpenFileDialog
-            {
-                Title = "Select Access Database",
-                Filter = "MDB (*.Mdb)|*.mdb|" +
-                           "ACCDB (*.Accdb)|*.accdb"
-            };
-            //oDlg.RestoreDirectory = true;
-            string dir = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-            oDlg.InitialDirectory = dir;
-
-            // Show open file dialog box
-            Nullable<bool> result = oDlg.ShowDialog();
-         
-            // OK wurde gedrückt:
-            if (result == true)
-            {
-                this.txtAccessDatabase.Text = oDlg.FileName.ToString();                
-            }   
-        }       
-              
-        private void BtnLoadSqlServerTables_Click(object sender, RoutedEventArgs e)
-        {
-            WaitDialog wd = null;
-            try
-            {
-                wd = new WaitDialog();              
-                wd.Show();//not modal
-            }
-            catch
-            {
-                MessageBox.Show("Please restart the about window!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                wd.Close();
-            }
-
-            try
-            {                                            
-                IDataService controller = new DataService();
-                List<string> tables = controller.GetSqlServerTables(this.txtSqlServer.Text, this.txtInstance.Text, this.txtDatabase.Text, this.txtVersion.Text, this.txtUser.Text, this.txtPassword.Text);
-                //FormData.Tables.Clear();
-                //tables.ForEach(this.FormData.Tables.Add);
-                //FormData.Table = tables.FirstOrDefault();
-                this.FormData.Tables = tables;                
-                FormData.Table = tables.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("The legend table wasn't defined or the session has been canceled! " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.staLblMessage.Content = "The legend table wasn't defined or the session has been canceled!";
-            }
            
-            wd.Close();
-        }
-              
-        private void MnuAppClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-          
         private void ChkSpracheDeutsch_Checked(object sender, RoutedEventArgs e)
         {
             this.chkSpracheEnglisch.IsChecked = false;
@@ -613,25 +540,7 @@ namespace LegendGenerator.App
                 stf.Close();
             }
         }
-
-        private void MnuResetPage_Click(object sender, RoutedEventArgs e)
-        {
-            IActiveView pActiveView = pMxDoc.ActiveView;
-            IPageLayout pPageLayout = pMxDoc.PageLayout;
-            IGraphicsContainer pGraphicsContainer = (IGraphicsContainer)pPageLayout;
-            //pGraphicsContainer.DeleteAllElements();
-            if (layoutCreator.LegendGroupElement != null)
-            {
-                pGraphicsContainer.DeleteElement((IElement)layoutCreator.LegendGroupElement);
-            }
-
-            pMxDoc.UpdateContents();
-            pMxDoc.ActiveView.Refresh();
-            // Rfresh the map
-            pActiveView.Refresh();
-            //this.Activate();
-        }
-
+              
         private void MnuFortlaufendeNummer_Click(object sender, RoutedEventArgs e)
         {
             FortlaufendeNrDialog fnd = null;
@@ -692,24 +601,6 @@ namespace LegendGenerator.App
                 this.txtFortlaufendeNummer.Text = oTxt.FileName.ToString();
             }
         }
-
-        private void BtnLoadAccessTables_Click(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(this.txtAccessDatabase.Text) == true)
-            {                
-                IDataService controller = new DataService();
-                List<string> tables = controller.GetTables(this.txtAccessDatabase.Text);               
-                this.FormData.Tables = tables;
-                //FormData.Tables.Clear();
-                //tables.ForEach(this.FormData.Tables.Add);
-                FormData.Table = tables.FirstOrDefault();
-            }
-            else
-            {
-                MessageBox.Show("Please define a correct Access database!", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
                
         private void InfoImage_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -754,11 +645,19 @@ namespace LegendGenerator.App
             Mouse.OverrideCursor = Cursors.Arrow;
             SortColumnInfoPopup.IsOpen = !SortColumnInfoPopup.IsOpen;
         }
-        
+
         #endregion
 
         #region private form helper methods
-        
+
+        private void OnViewModelRequestClose(object sender, FeedbackEventArgs e)
+        {            
+            if (e.ShouldClose == true)
+            {
+                base.Close();
+            }
+        }
+
         private string CreateFileDoesNotExistMsg()
         {
             return "The example XML file '" + pfadKonfigurationsdatei + "' does not exist." + "\n\n" +

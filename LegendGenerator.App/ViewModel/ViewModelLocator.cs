@@ -11,6 +11,8 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using LegendGenerator.App.Model;
+
 namespace LegendGenerator.App.ViewModel
 {
     /// <summary>
@@ -24,18 +26,9 @@ namespace LegendGenerator.App.ViewModel
         /// </summary>
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);   
+            SimpleIoc.Default.Register<IDataService, DataService>();
+            
 
             SimpleIoc.Default.Register<MainViewModel>(true);
 

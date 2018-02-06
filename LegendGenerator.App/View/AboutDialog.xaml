@@ -41,9 +41,9 @@
             <Label Canvas.Left="14" Canvas.Top="8" Content="LegendGenerator" Height="34" Name="lblUeberschrift" FontWeight="SemiBold" FontStyle="Normal" FontSize="18" FontFamily="Verdana" Width="188" />
             <Image Source="../Skins/Images/gba.png" Canvas.Left="278" Canvas.Top="118" Height="28" Name="image1" Stretch="Uniform" Width="47" />
             <Label Canvas.Left="14" Canvas.Top="38" Content="Product: LegendGenerator" Height="28" Name="lblProduct" Width="249" />
-            <Label Canvas.Left="14" Canvas.Top="58" Content="Version: 5.15" Height="28" Name="lblVersion" Width="249" />
+            <Label Canvas.Left="14" Canvas.Top="58" Content="Version: 5.15.1" Height="28" Name="lblVersion" Width="249" />
             <Label Canvas.Left="14" Canvas.Top="98" Content="Company: Federal Geological Office Vienna (GBA)" Height="28" Name="lblCompanyName" />
-            <Label Canvas.Left="14" Canvas.Top="78" Content="ReleaseDate: 02.02.2018" Height="28" Name="lblProgrammer" Width="267" />
+            <Label Canvas.Left="14" Canvas.Top="78" Content="ReleaseDate: 06.02.2018" Height="28" Name="lblProgrammer" Width="267" />
             <Label Canvas.Left="14" Canvas.Top="118" Content="Copyright 2011-2018. All rights reserved." Height="28" Name="lblCopyright" Width="249" />
         </Canvas>
 
