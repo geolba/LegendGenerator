@@ -35,39 +35,27 @@ namespace LegendGenerator.App.ViewModel
         public MainViewModel(IDataService dataService)
         {
             _dataService = dataService;
-
-            if (IsInDesignMode)
+          
+            _dataService.GetData(
+            delegate (FormularData formData, Exception error)
             {
-                // Code runs in Blend --> create design time data.
-                FormularData formData = new FormularData();
-                formData.AccessDatabase = "DesignDatabase";
-                formData.TabAccess = true;
-                formData.ChkAccess = true;
-                this.FormData = formData;
-            }
-            else
-            {      
-                _dataService.GetData(
-                delegate (FormularData formData, Exception error)
+                if (error != null)
                 {
-                    if (error != null)
-                    {
-                        // Report error here
-                        //to do sett error message on property
-                        return;
-                    }
-                    this.FormData = formData;
-                });
+                    // Report error here
+                    //to do sett error message on property
+                    return;
+                }
+                this.FormData = formData;
+            });
                
-                //define viewmodel commands
-                LoadProjectCommand = new RelayCommand(MnuAppLoad_Click);
-                SaveProjectCommand = new RelayCommand(MnuAppSave_Click);
-                SaveAsProjectCommand = new RelayCommand(MnuAppSaveNew_Click);
-                LoadAccessDbCommand = new RelayCommand(BtnLoadAccessDb_Click);
-                LoadAccessTablesCommand = new RelayCommand(BtnLoadAccessTables_Click);
-                LoadSqlTablesCommand = new RelayCommand(BtnLoadSqlServerTables_Click);
-                CloseCommand = new RelayCommand(Close);
-            }
+            //define viewmodel commands
+            LoadProjectCommand = new RelayCommand(MnuAppLoad_Click);
+            SaveProjectCommand = new RelayCommand(MnuAppSave_Click);
+            SaveAsProjectCommand = new RelayCommand(MnuAppSaveNew_Click);
+            LoadAccessDbCommand = new RelayCommand(BtnLoadAccessDb_Click);
+            LoadAccessTablesCommand = new RelayCommand(BtnLoadAccessTables_Click);
+            LoadSqlTablesCommand = new RelayCommand(BtnLoadSqlServerTables_Click);
+            CloseCommand = new RelayCommand(Close);            
         }
 
         #region commands

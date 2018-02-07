@@ -8,7 +8,7 @@
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
-
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using LegendGenerator.App.Model;
@@ -26,10 +26,16 @@ namespace LegendGenerator.App.ViewModel
         /// </summary>
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);   
-            SimpleIoc.Default.Register<IDataService, DataService>();
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                SimpleIoc.Default.Register<IDataService, DesignDataservice>();                
+            }
+            else
+            {
+                SimpleIoc.Default.Register<IDataService, DataService>();
+            }
             
-
             SimpleIoc.Default.Register<MainViewModel>(true);
 
             SimpleIoc.Default.Register<CopyrightViewModel>(true);

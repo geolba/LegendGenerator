@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using LegendGenerator.App.Utils;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
 
 /// <summary>
 /// FormularData test class to demonstrate how to include custom metadata attributes in a 
@@ -32,12 +27,6 @@ namespace LegendGenerator.App.Model
         //fields for the column names!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private List<string> _tables;
        
-
-        //attributes for symbol:
-        //private bool _chkFarbwerte;
-        //private bool _chkAllowNullLegendNumber;
-        //private string _styleFile;
-
         #endregion
 
         #region constructor 
