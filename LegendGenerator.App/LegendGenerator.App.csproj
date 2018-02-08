@@ -133,7 +133,7 @@
     </Compile>
     <Compile Include="Model\DesignDataservice.cs" />
     <Compile Include="Utils\AdornerBehavior.cs" />
-    <Compile Include="Utils\CustomStringToColorConverter.cs" />
+    <Compile Include="Utils\Converter.cs" />
     <Compile Include="Utils\Events.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Utils\ValidationAttribute.cs" />

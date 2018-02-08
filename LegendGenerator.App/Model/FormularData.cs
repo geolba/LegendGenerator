@@ -18,15 +18,13 @@ namespace LegendGenerator.App.Model
 
         private System.DateTime _dateTimeValue;
 
-        //fields for access database       
+        //fields for database       
         private bool _chkAccess;
-
-        //fields for sqlserver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private bool _chkSde;
-                     
+               
         //fields for the column names!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private List<string> _tables;
-       
+
         #endregion
 
         #region constructor 
@@ -35,11 +33,11 @@ namespace LegendGenerator.App.Model
         {
             //ColumnNames = new System.Collections.ArrayList();
             _tables = new List<string>();
-            this._dateTimeValue = System.DateTime.Now;
+            this._dateTimeValue = System.DateTime.Now;    
         }
 
         #endregion
-
+        
         // Set this 'DateTimeValue' field to be an attribute of the root node.
         [XmlAttributeAttribute(DataType = "date")]
         public System.DateTime DateTimeValue

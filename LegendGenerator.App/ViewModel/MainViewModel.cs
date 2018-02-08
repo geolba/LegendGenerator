@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Linq;
 using LegendGenerator.App.View;
+using System.Threading;
+using LegendGenerator.App.Resources;
 
 namespace LegendGenerator.App.ViewModel
 {
@@ -26,6 +28,11 @@ namespace LegendGenerator.App.ViewModel
         private string _pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;
         private FormularData _formData;
         private readonly IDataService _dataService;
+        //fields for language settings
+        private bool _chkEnglish;
+        private bool _chkGerman;
+        private Resource _resources = new Resource();
+
 
         #endregion
 
@@ -37,7 +44,7 @@ namespace LegendGenerator.App.ViewModel
             _dataService = dataService;
           
             _dataService.GetData(
-            delegate (FormularData formData, Exception error)
+            callback: delegate (FormularData formData, Exception error)
             {
                 if (error != null)
                 {
@@ -47,7 +54,17 @@ namespace LegendGenerator.App.ViewModel
                 }
                 this.FormData = formData;
             });
-               
+
+            string language = System.Globalization.CultureInfo.CurrentCulture.Name;
+            if (language.Contains("de") == true)
+            {
+                this.ChkGerman = true;
+            }
+            else
+            {
+                this.ChkEnglish = true;
+            }
+
             //define viewmodel commands
             LoadProjectCommand = new RelayCommand(MnuAppLoad_Click);
             SaveProjectCommand = new RelayCommand(MnuAppSave_Click);
@@ -55,7 +72,7 @@ namespace LegendGenerator.App.ViewModel
             LoadAccessDbCommand = new RelayCommand(BtnLoadAccessDb_Click);
             LoadAccessTablesCommand = new RelayCommand(BtnLoadAccessTables_Click);
             LoadSqlTablesCommand = new RelayCommand(BtnLoadSqlServerTables_Click);
-            CloseCommand = new RelayCommand(Close);            
+            CloseCommand = new RelayCommand(Close);           
         }
 
         #region commands
@@ -67,7 +84,7 @@ namespace LegendGenerator.App.ViewModel
         public RelayCommand LoadAccessTablesCommand { get; private set; }
         public RelayCommand LoadSqlTablesCommand { get; private set; }
         public RelayCommand CloseCommand { get; private set; }
-
+     
         #endregion
 
         public FormularData FormData
@@ -90,6 +107,46 @@ namespace LegendGenerator.App.ViewModel
             {
                 this._title = value;
                 base.RaisePropertyChanged("Title");
+            }
+        }       
+
+        public Resource LocalizedText
+        {
+            get
+            {
+                return _resources;
+            }
+        }
+
+        public bool ChkEnglish
+        {
+            get { return _chkEnglish; }
+            set
+            {
+                _chkEnglish = value;
+                base.RaisePropertyChanged("ChkEnglish");
+                if (value == true)
+                {
+                    this.ChangeCulture("en-US");
+                }
+
+                this.CalculateDependentCheckBox(ref _chkGerman, "chkGerman", !value);
+
+            }
+        }
+        public bool ChkGerman
+        {
+            get { return _chkGerman; }
+            set
+            {
+                _chkGerman = value;
+                base.RaisePropertyChanged("ChkGerman");
+                if (value == true)
+                {
+                    this.ChangeCulture("de-AT");
+                }
+                this.CalculateDependentCheckBox(ref _chkEnglish, "ChkEnglish", !value);
+
             }
         }
 
@@ -270,6 +327,19 @@ namespace LegendGenerator.App.ViewModel
         private void Close()
         {            
             this.RaiseRequestClose(new FeedbackEventArgs(true, false));
+        } 
+
+        private void CalculateDependentCheckBox(ref bool otherCheckBox, string otherProperty, bool negatedCheckValue)
+        {
+            otherCheckBox = negatedCheckValue;
+            base.RaisePropertyChanged(otherProperty);
+        }
+
+        private void ChangeCulture(string lang)
+        {
+            var culture = new System.Globalization.CultureInfo(lang);            
+            Thread.CurrentThread.CurrentUICulture = culture;         
+            this.RaisePropertyChanged("LocalizedText");
         }
 
         private string CreateFileDoesNotExistMsg()

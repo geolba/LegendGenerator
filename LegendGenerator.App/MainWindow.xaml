@@ -1,7 +1,6 @@
 ﻿<Window x:Class="LegendGenerator.App.MainWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"       
-        xmlns:resx="clr-namespace:LegendGenerator.App.Resources"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
         Title="Legend Generator für ArcMap 10.3" 
         WindowStartupLocation="CenterScreen"
         Height="748" Width="740" Loaded="Window_Loaded"  
@@ -10,7 +9,7 @@
         mc:Ignorable="d" 
         xmlns:vm="clr-namespace:LegendGenerator.App.ViewModel"
         Icon="Skins/Images/gba.png" FontSize="12" Closing="Window_Closing">
-    
+
 
     <Window.Resources>
         <ResourceDictionary>
@@ -30,32 +29,32 @@
 
     <DockPanel x:Name="LayoutRoot" d:DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         <Menu DockPanel.Dock="Top">
-            <MenuItem x:Name="mnuFile" Header="{x:Static resx:Resource.mnuFile}"  >
-                <MenuItem x:Name="mnuAppSave" Header="{x:Static resx:Resource.mnuAppSave}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveProjectCommand}" Foreground="Black" FontWeight="Medium"  />
-                <MenuItem x:Name="mnuAppSaveNew" Header="{x:Static resx:Resource.mnuAppSaveNew}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveAsProjectCommand}" Foreground="Black" FontWeight="Medium"/>
-                <MenuItem x:Name="mnuAppLoad" Header="{x:Static resx:Resource.mnuAppLoad}"  Icon="{DynamicResource ResourceKey=imgLoad}" Command="{Binding LoadProjectCommand}" Foreground="Black" FontWeight="Medium" />
+            <MenuItem x:Name="mnuFile" Header="{Binding LocalizedText.mnuFile, Mode=OneWay}" >
+                <MenuItem x:Name="mnuAppSave" Header="{Binding LocalizedText.mnuAppSave, Mode=OneWay}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveProjectCommand}" Foreground="Black" FontWeight="Medium"  />
+                <MenuItem x:Name="mnuAppSaveNew" Header="{Binding LocalizedText.mnuAppSaveNew, Mode=OneWay}"  Icon="{DynamicResource ResourceKey=imgSave}" Command="{Binding SaveAsProjectCommand}" Foreground="Black" FontWeight="Medium"/>
+                <MenuItem x:Name="mnuAppLoad" Header="{Binding LocalizedText.mnuAppLoad, Mode=OneWay}"  Icon="{DynamicResource ResourceKey=imgLoad}" Command="{Binding LoadProjectCommand}" Foreground="Black" FontWeight="Medium" />
                 <Separator />
-                <MenuItem x:Name="mnuAppClose" Header="{x:Static resx:Resource.mnuAppClose}"  Icon="{DynamicResource ResourceKey=appClose}" Command="{Binding CloseCommand}" Foreground="Black" FontWeight="Medium" />
+                <MenuItem x:Name="mnuAppClose" Header="{Binding LocalizedText.mnuAppClose, Mode=OneWay}"  Icon="{DynamicResource ResourceKey=appClose}" Command="{Binding CloseCommand}" Foreground="Black" FontWeight="Medium" />
             </MenuItem>
 
-            <MenuItem x:Name="mnuEinstellungen" Header="{x:Static resx:Resource.mnuEinstellungen}"  >
-                <MenuItem x:Name="mnuSpracheinstellungen" Header="{x:Static resx:Resource.mnuSpracheinstellungen}"  Icon="{DynamicResource ResourceKey=imgEinstellungen}" Foreground="Black" FontWeight="Medium">
-                    <CheckBox x:Name="chkSpracheDeutsch" Content="{x:Static resx:Resource.chkSpracheDeutsch}" Checked="ChkSpracheDeutsch_Checked" Unchecked="ChkSpracheDeutsch_Unchecked" />
-                    <CheckBox x:Name="chkSpracheEnglisch" Content="{x:Static resx:Resource.chkSpracheEnglisch}" Checked="ChkSpracheEnglisch_Checked" Unchecked="ChkSpracheEnglisch_Unchecked" />
+            <MenuItem x:Name="mnuEinstellungen" Header="{Binding LocalizedText.mnuEinstellungen, Mode=OneWay}"  >
+                <MenuItem x:Name="mnuSpracheinstellungen" Header="{Binding LocalizedText.mnuSpracheinstellungen, Mode=OneWay}"  Icon="{DynamicResource ResourceKey=imgEinstellungen}" Foreground="Black" FontWeight="Medium">
+                    <CheckBox x:Name="chkSpracheDeutsch" Content="{Binding LocalizedText.chkSpracheDeutsch, Mode=OneWay}" IsChecked="{Binding ChkGerman, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox x:Name="chkSpracheEnglisch" Content="{Binding LocalizedText.chkSpracheEnglisch, Mode=OneWay}" IsChecked="{Binding ChkEnglish, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </MenuItem>
-                <MenuItem x:Name="mnuLoadStylefile" Header="{x:Static resx:Resource.mnuLoadStylefile}" Click="MnuLoadStylefile_Click" Icon="{DynamicResource ResourceKey=imgLoadStyleFile}" Foreground="Black" FontWeight="Medium"/>
+                <MenuItem x:Name="mnuLoadStylefile" Header="{Binding LocalizedText.mnuLoadStylefile, Mode=OneWay}" Click="MnuLoadStylefile_Click" Icon="{DynamicResource ResourceKey=imgLoadStyleFile}" Foreground="Black" FontWeight="Medium"/>
             </MenuItem>
 
             <MenuItem x:Name="mnuExport" Header="Export" >
-                <MenuItem x:Name="mnuGraphicExport" Header="{x:Static resx:Resource.mnuGraphicExport}" Icon="{DynamicResource ResourceKey=imgSymbolExport}" Foreground="Black" FontWeight="Medium" Click="MnuGraphicExport_Click"/>
+                <MenuItem x:Name="mnuGraphicExport" Header="{Binding LocalizedText.mnuGraphicExport, Mode=OneWay}" Icon="{DynamicResource ResourceKey=imgSymbolExport}" Foreground="Black" FontWeight="Medium" Click="MnuGraphicExport_Click"/>
             </MenuItem>
 
-            <MenuItem x:Name="mnuInfo" Header="{x:Static resx:Resource.mnuInfo}" >
-                <MenuItem x:Name="mnuAppAbout"  Header="{x:Static resx:Resource.mnuAppAbout}" Click="MnuAppAbout_Click" Icon="{DynamicResource imgInfo}" Foreground="Black" FontWeight="Medium" />
+            <MenuItem x:Name="mnuInfo" Header="{Binding LocalizedText.mnuInfo, Mode=OneWay}" >
+                <MenuItem x:Name="mnuAppAbout"  Header="{Binding LocalizedText.mnuAppAbout, Mode=OneWay}" Click="MnuAppAbout_Click" Icon="{DynamicResource imgInfo}" Foreground="Black" FontWeight="Medium" />
             </MenuItem>
 
-            <MenuItem x:Name="mnuHilfe" Header="{x:Static resx:Resource.mnuHilfe}" >
-                <MenuItem x:Name="mnuAppHelp" Header="{x:Static resx:Resource.mnuAppHelp}" Icon="{DynamicResource ResourceKey=imgHilfe}" Click="MnuAppHelp_Click" Foreground="Black" FontWeight="Medium"/>
+            <MenuItem x:Name="mnuHilfe" Header="{Binding LocalizedText.mnuHilfe, Mode=OneWay}" >
+                <MenuItem x:Name="mnuAppHelp" Header="{Binding LocalizedText.mnuAppHelp, Mode=OneWay}" Icon="{DynamicResource ResourceKey=imgHilfe}" Click="MnuAppHelp_Click" Foreground="Black" FontWeight="Medium"/>
             </MenuItem>
         </Menu>
 
@@ -73,100 +72,100 @@
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Canvas Width="709" Height="661">
-                <Button Canvas.Left="529" Canvas.Top="629" Content="{x:Static resx:Resource.btnCreateLegend}" Height="23" x:Name="btnCreateLegend" Width="170" IsEnabled="True" Click="BtnCreateLegend_Click" />
-                <Button Canvas.Left="351" Canvas.Top="629" Content="{x:Static resx:Resource.btnLegendTemplate}" Height="23" x:Name="btnLegendTemplate" Width="170" IsEnabled="True" Click="BtnLegendTemplate_Click" />
+                <Button Canvas.Left="529" Canvas.Top="629" Content="{Binding LocalizedText.btnCreateLegend, Mode=OneWay}" Height="23" x:Name="btnCreateLegend" Width="170" IsEnabled="True" Click="BtnCreateLegend_Click" />
+                <Button Canvas.Left="351" Canvas.Top="629" Content="{Binding LocalizedText.btnCreateLegend, Mode=OneWay}" Height="23" x:Name="btnLegendTemplate" Width="170" IsEnabled="True" Click="BtnLegendTemplate_Click" />
 
                 <TabControl Canvas.Left="6" Canvas.Top="9" Height="236" x:Name="tabControl1" Width="333" Background="{x:Null}">
-                    <TabItem Header="{x:Static resx:Resource.tabItemAccess}" IsSelected="{Binding FormData.TabAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemAccess" >
+                    <TabItem Header="{Binding LocalizedText.tabItemAccess, Mode=OneWay}" IsSelected="{Binding FormData.TabAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemAccess" >
                         <Canvas Height="195" Width="315">
-                            <CheckBox x:Name="chkAccess" Content="{x:Static resx:Resource.chkAccess}" IsChecked="{Binding FormData.ChkAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Tag="True" Canvas.Left="12" Canvas.Top="14" />
-                            <Label Canvas.Left="10" Canvas.Top="44" Content="{x:Static resx:Resource.lblAccessDatabase}"  x:Name="lblAccessDatabase"  Foreground="#FF27B23A" FontWeight="Bold" />
+                            <CheckBox x:Name="chkAccess" Content="{Binding LocalizedText.chkAccess, Mode=OneWay}" IsChecked="{Binding FormData.ChkAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Tag="True" Canvas.Left="12" Canvas.Top="14" />
+                            <Label Canvas.Left="10" Canvas.Top="44" x:Name="lblAccessDatabase" Content="{Binding LocalizedText.lblAccessDatabase, Mode=OneWay}" Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="102" Canvas.Top="38" IsEnabled="{Binding FormData.ChkAccess}" x:Name="txtAccessDatabase" Width="171" Text="{Binding FormData.AccessDatabase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" FlowDirection="RightToLeft" />
                             <Button Canvas.Left="279" Canvas.Top="38"  IsEnabled="{Binding FormData.ChkAccess}" Content="{DynamicResource imgLoad}"  x:Name="btnLoadAccessDb" Width="30" Command="{Binding LoadAccessDbCommand}" />
-                            <Button Canvas.Left="102" Canvas.Top="81" IsEnabled="{Binding FormData.ChkAccess}" Content="{x:Static resx:Resource.btnLoadAccessTables}" x:Name="btnLoadAccessTables" Width="171" Command="{Binding LoadAccessTablesCommand}" />
+                            <Button Canvas.Left="102" Canvas.Top="81" IsEnabled="{Binding FormData.ChkAccess}" Content="{Binding LocalizedText.btnLoadAccessTables, Mode=OneWay}" x:Name="btnLoadAccessTables" Width="171" Command="{Binding LoadAccessTablesCommand}" />
                         </Canvas>
                     </TabItem>
-                    <TabItem Header="{x:Static resx:Resource.tabItemSde}" IsSelected="{Binding FormData.TabSde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemSde" Height="22" VerticalAlignment="Bottom">
+                    <TabItem Header="{Binding LocalizedText.tabItemSde, Mode=OneWay}" IsSelected="{Binding FormData.TabSde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemSde" Height="22" VerticalAlignment="Bottom">
                         <Canvas Height="201" Width="281">
-                            <CheckBox x:Name="chkSde" Content="{x:Static resx:Resource.chkSde}" IsChecked="{Binding FormData.ChkSde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="6" Canvas.Top="6" />
-                            <CheckBox Canvas.Left="121" Canvas.Top="6" IsEnabled="{Binding FormData.ChkSde}" Content="{x:Static resx:Resource.chkAuthentifizierung}" IsChecked="{Binding FormData.ChkAuthentifizierung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkAuthentifizierung" />
+                            <CheckBox x:Name="chkSde" Content="{Binding LocalizedText.chkSde, Mode=OneWay}" IsChecked="{Binding FormData.ChkSde, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="6" Canvas.Top="6" />
+                            <CheckBox Canvas.Left="121" Canvas.Top="6" IsEnabled="{Binding FormData.ChkSde}" Content="{Binding LocalizedText.chkAuthentifizierung, Mode=OneWay}" IsChecked="{Binding FormData.ChkAuthentifizierung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkAuthentifizierung" />
 
-                            <Label Canvas.Left="7" Canvas.Top="30"  Content="{x:Static resx:Resource.lblSqlServer}" x:Name="lblServer" Width="72" />
+                            <Label Canvas.Left="7" Canvas.Top="30"  Content="{Binding LocalizedText.lblSqlServer, Mode=OneWay}" x:Name="lblServer" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="26"  IsEnabled="{Binding FormData.ChkSde}" x:Name="txtSqlServer" Width="160" Tag="obelix"  Text="{Binding FormData.SqlServer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="public" />
 
-                            <Label Canvas.Left="6" Canvas.Top="55" Content="{x:Static resx:Resource.lblInstance}" x:Name="lblInstance" Width="87" />
+                            <Label Canvas.Left="6" Canvas.Top="55" Content="{Binding LocalizedText.lblInstance, Mode=OneWay}" x:Name="lblInstance" Width="87" />
                             <TextBox Canvas.Left="100" Canvas.Top="51"  IsEnabled="{Binding FormData.ChkSde}" x:Name="txtInstance" Width="160" Tag="sde:sqlserver:obelix" Text="{Binding FormData.ServerInstance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="public" />
 
-                            <Label Canvas.Left="6" Canvas.Top="80" Content="{x:Static resx:Resource.lblDatabase}" Height="28" x:Name="lblDatabase" Width="72" />
+                            <Label Canvas.Left="6" Canvas.Top="80" Content="{Binding LocalizedText.lblDatabase, Mode=OneWay}" Height="28" x:Name="lblDatabase" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="76"  IsEnabled="{Binding FormData.ChkSde}" x:Name="txtDatabase" Width="160" Tag="C01"  Text="{Binding FormData.ServerDatenbank, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="public" />
 
-                            <Label Canvas.Left="7" Canvas.Top="105" Content="{x:Static resx:Resource.lblUser}" Height="28" x:Name="lblUser" x:FieldModifier="public" Width="72" />
+                            <Label Canvas.Left="7" Canvas.Top="105" Content="{Binding LocalizedText.lblUser, Mode=OneWay}" Height="28" x:Name="lblUser" x:FieldModifier="public" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="101" IsEnabled="{Binding FormData.ChkAuthentifizierung}" x:Name="txtUser" Width="160" x:FieldModifier="public" Text="{Binding FormData.ServerUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Label Canvas.Left="7" Canvas.Top="130" Content="{x:Static resx:Resource.lblPassword}"  x:Name="lblPassword" Width="72" />
+                            <Label Canvas.Left="7" Canvas.Top="130" Content="{Binding LocalizedText.lblPassword, Mode=OneWay}"  x:Name="lblPassword" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="126" IsEnabled="{Binding FormData.ChkAuthentifizierung}" x:Name="txtPassword" Width="160" x:FieldModifier="public" Text="{Binding FormData.ServerPasswort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Label Canvas.Left="7" Canvas.Top="155" Content="{x:Static resx:Resource.lblVersion}"  x:Name="lblVersion" Width="72" />
+                            <Label Canvas.Left="7" Canvas.Top="155" Content="{Binding LocalizedText.lblVersion, Mode=OneWay}"  x:Name="lblVersion" Width="72" />
                             <TextBox Canvas.Left="100" Canvas.Top="151"  IsEnabled="{Binding FormData.ChkSde}" x:Name="txtVersion" Width="160" Tag="SDE.DEFAULT" x:FieldModifier="public" Text="{Binding FormData.ServerVersion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Button Canvas.Left="100" Canvas.Top="176" IsEnabled="{Binding FormData.ChkSde}" Content="{x:Static resx:Resource.btnLoadSqlServerTables}" Height="23" x:Name="btnLoadSqlServerTables" Width="160" Command="{Binding LoadSqlTablesCommand}" />
+                            <Button Canvas.Left="100" Canvas.Top="176" IsEnabled="{Binding FormData.ChkSde}" Content="{Binding LocalizedText.btnLoadSqlServerTables, Mode=OneWay}" Height="23" x:Name="btnLoadSqlServerTables" Width="160" Command="{Binding LoadSqlTablesCommand}" />
                         </Canvas>
                     </TabItem>
                 </TabControl>
-                <Label Canvas.Left="11" Canvas.Top="244" Content="{x:Static resx:Resource.lblEinstellungen}" Height="23" x:Name="lblEinstellungen"  FontSize="12" FontWeight="Bold" Width="186" />
+                <Label Canvas.Left="11" Canvas.Top="244" Content="{Binding LocalizedText.lblEinstellungen, Mode=OneWay}" Height="23" x:Name="lblEinstellungen"  FontSize="12" FontWeight="Bold" Width="186" />
                 <TabControl Canvas.Left="5" Canvas.Top="261" Height="263" x:Name="tabControl2" Width="334" Background="{x:Null}">
-                    <TabItem Header="{x:Static resx:Resource.tabItemGrafPos}" x:Name="tabItemGrafPos">
+                    <TabItem Header="{Binding LocalizedText.tabItemGrafPos, Mode=OneWay}" x:Name="tabItemGrafPos">
                         <Canvas Height="230" Width="300">
-                            <Label Canvas.Left="6" Canvas.Top="24" Content="{x:Static resx:Resource.lblXoffset}" x:Name="lblXoffset" Width="66" />
+                            <Label Canvas.Left="6" Canvas.Top="24" Content="{Binding LocalizedText.lblXoffset, Mode=OneWay}" x:Name="lblXoffset" Width="66" />
                             <TextBox Canvas.Left="100" Canvas.Top="20"  x:Name="x_Offset" Width="35" Text="{Binding FormData.XOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-                            <Label Canvas.Left="6" Canvas.Top="50" Content="{x:Static resx:Resource.lblYoffset}" x:Name="lblYoffset" Width="66" />
+                            <Label Canvas.Left="6" Canvas.Top="50" Content="{Binding LocalizedText.lblYoffset, Mode=OneWay}" x:Name="lblYoffset" Width="66" />
                             <TextBox Canvas.Left="100" Canvas.Top="46" x:Name="y_offset" Width="35" Text="{Binding FormData.YOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="6" Canvas.Top="78" Content="{x:Static resx:Resource.lblVertikalabstand}" x:Name="lblVertikalabstand" Width="89" />
+                            <Label Canvas.Left="6" Canvas.Top="78" Content="{Binding LocalizedText.lblVertikalabstand, Mode=OneWay}" x:Name="lblVertikalabstand" Width="89" />
                             <TextBox Canvas.Left="100" Canvas.Top="73"  x:Name="kastlabstand" Width="35" Text="{Binding FormData.Vertikalabstand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  />
 
-                            <Label Canvas.Left="6" Canvas.Top="103" Content="{x:Static resx:Resource.lblKlammerabstand}"  x:Name="lblKlammerabstand" Width="89" />
+                            <Label Canvas.Left="6" Canvas.Top="103" Content="{Binding LocalizedText.lblKlammerabstand, Mode=OneWay}"  x:Name="lblKlammerabstand" Width="89" />
                             <TextBox Canvas.Left="100" Canvas.Top="99"  x:Name="klammerabstand" Width="35" Text="{Binding FormData.Klammerabstand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="6" Canvas.Top="138" Content="{x:Static resx:Resource.lblKaestchenLegendentextAbstand}"  x:Name="lblKastlLegendentextAbstand" Width="203" />
+                            <Label Canvas.Left="6" Canvas.Top="138" Content="{Binding LocalizedText.lblKaestchenLegendentextAbstand, Mode=OneWay}"  x:Name="lblKastlLegendentextAbstand" Width="203" />
                             <TextBox Canvas.Left="262" Canvas.Top="134"  x:Name="txtBezAbstand" Width="35" Text="{Binding FormData.KaestchenLegendentextAbstand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="156" Canvas.Top="24" Content="{x:Static resx:Resource.lblVorUeberschrift1}"  x:Name="lblVorUeberschrift1" Width="102" />
+                            <Label Canvas.Left="156" Canvas.Top="24" Content="{Binding LocalizedText.lblUeberschrift1, Mode=OneWay}"  x:Name="lblVorUeberschrift1" Width="102" />
                             <TextBox Canvas.Left="262" Canvas.Top="20" x:Name="vorus1" Width="35" Text="{Binding FormData.VorUeberschrift1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
-                            <Label Canvas.Left="156" Canvas.Top="50" Content="{x:Static resx:Resource.lblNachUeberschrift1}"  x:Name="lblNachUeberschrift1" Width="102" />
+                            <Label Canvas.Left="156" Canvas.Top="50" Content="{Binding LocalizedText.lblNachUeberschrift1, Mode=OneWay}"  x:Name="lblNachUeberschrift1" Width="102" />
                             <TextBox Canvas.Left="262" Canvas.Top="50"  x:Name="nachus1" Width="35" Text="{Binding FormData.NachUeberschrift1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
-                            <Label Canvas.Left="156" Canvas.Top="79" Content="{x:Static resx:Resource.lblNachUeberschrift2}"  x:Name="lblNachUeberschrift2" Width="103" />
+                            <Label Canvas.Left="156" Canvas.Top="79" Content="{Binding LocalizedText.lblNachUeberschrift2, Mode=OneWay}"  x:Name="lblNachUeberschrift2" Width="103" />
                             <TextBox Canvas.Left="262" Canvas.Top="79"  x:Name="nachus2" Width="35" Text="{Binding FormData.NachUeberschrift2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="156" Canvas.Top="108" Content="{x:Static resx:Resource.lblNotizenOffset}"  x:Name="lblNotizenOffset" Width="102" />
+                            <Label Canvas.Left="156" Canvas.Top="108" Content="{Binding LocalizedText.lblNotizenOffset, Mode=OneWay}"  x:Name="lblNotizenOffset" Width="102" />
                             <TextBox Canvas.Left="262" Canvas.Top="108"  x:Name="notoff" Width="35"  Text="{Binding FormData.NotizenOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                         </Canvas>
                     </TabItem>
-                    <TabItem  Header="{x:Static resx:Resource.tabItemUmbruch}" x:Name="tabItemUmbruch">
+                    <TabItem  Header="{Binding LocalizedText.tabItemUmbruch, Mode=OneWay}" x:Name="tabItemUmbruch">
                         <Canvas Height="199" Width="300">
-                            <Label Canvas.Left="10" Canvas.Top="16" Content="{x:Static resx:Resource.lblUmbruchUeberschrift1}"  x:Name="lblUmbruchUeberschrift1" Width="80" />
+                            <Label Canvas.Left="10" Canvas.Top="16" Content="{Binding LocalizedText.lblUmbruchUeberschrift1, Mode=OneWay}"  x:Name="lblUmbruchUeberschrift1" Width="80" />
                             <TextBox Canvas.Left="96" Canvas.Top="12"  x:Name="zeile_us1" Width="35" Text="{Binding FormData.UmbruchUeberschrift1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="10" Canvas.Top="43" Content="{x:Static resx:Resource.lblUmbruchUeberschrift2}"  x:Name="lblUmbruchUeberschrift2" Width="80" />
+                            <Label Canvas.Left="10" Canvas.Top="43" Content="{Binding LocalizedText.lblUmbruchUeberschrift2, Mode=OneWay}"  x:Name="lblUmbruchUeberschrift2" Width="80" />
                             <TextBox Canvas.Left="96" Canvas.Top="38"  x:Name="zeile_us2" Width="35" Text="{Binding FormData.UmbruchUeberschrift2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="10" Canvas.Top="70" Content="{x:Static resx:Resource.lblUmbruchUeberschrift3}"  x:Name="lblUmbruchUeberschrift3" Width="80" />
+                            <Label Canvas.Left="10" Canvas.Top="70" Content="{Binding LocalizedText.lblUmbruchUeberschrift3, Mode=OneWay}"  x:Name="lblUmbruchUeberschrift3" Width="80" />
                             <TextBox Canvas.Left="96" Canvas.Top="65" x:Name="zeile_us3" Width="35" Text="{Binding FormData.UmbruchUeberschrift3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="147" Canvas.Top="16" Content="{x:Static resx:Resource.lblUmbruchLegendentext}"  x:Name="lblUmbruchLegendentext" Width="107" />
+                            <Label Canvas.Left="147" Canvas.Top="16" Content="{Binding LocalizedText.lblUmbruchLegendentext, Mode=OneWay}"  x:Name="lblUmbruchLegendentext" Width="107" />
                             <TextBox Canvas.Left="260" Canvas.Top="12"  x:Name="zeile_bez" Width="35" Text="{Binding FormData.UmbruchLegendentext, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="147" Canvas.Top="43" Content="{x:Static resx:Resource.lblUmbruchSpaltenLaenge}" x:Name="lblUmbruchSpaltenLaenge" Width="107" />
+                            <Label Canvas.Left="147" Canvas.Top="43" Content="{Binding LocalizedText.lblUmbruchSpaltenLaenge, Mode=OneWay}" x:Name="lblUmbruchSpaltenLaenge" Width="107" />
                             <TextBox Canvas.Left="260" Canvas.Top="39"  x:Name="spaltenlaenge" Width="35" Text="{Binding FormData.UmbruchSpaltenLaenge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="147" Canvas.Top="72" Content="{x:Static resx:Resource.lblUmbruchSpaltenOffset}" x:Name="lblUmbruchSpaltenOffset" Width="107" />
+                            <Label Canvas.Left="147" Canvas.Top="72" Content="{Binding LocalizedText.lblUmbruchSpaltenOffset, Mode=OneWay}" x:Name="lblUmbruchSpaltenOffset" Width="107" />
                             <TextBox Canvas.Left="260" Canvas.Top="68"  x:Name="spaltenoffset" Width="35" Text="{Binding FormData.UmbruchSpaltenOffset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                         </Canvas>
                     </TabItem>
 
-                    <TabItem  Header="{x:Static resx:Resource.tabItemAufdrucksfarben}" x:Name="tabItemAufdrucksfarben">
+                    <TabItem  Header="{Binding LocalizedText.tabItemAufdrucksfarben, Mode=OneWay}" x:Name="tabItemAufdrucksfarben">
                         <Canvas Height="230" Width="324">
 
                             <TextBox Canvas.Left="121" Canvas.Top="5" x:Name="txtRoc" Text="{Binding FormData.Roc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="32" FlowDirection="RightToLeft" />
@@ -214,15 +213,15 @@
                             <TextBox Canvas.Left="215" Canvas.Top="205" x:Name="txtOry" Tag="100" Text="{Binding FormData.Ory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="32" FlowDirection="RightToLeft" />
                             <TextBox Canvas.Left="261" Canvas.Top="205" x:Name="txtOrk" Tag="21" Text="{Binding FormData.Ork, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="32" FlowDirection="RightToLeft" />
 
-                            <Label Canvas.Left="7" Canvas.Top="9" Content="{x:Static resx:Resource.lblAufdruckRot}"  x:Name="lblAufdruckRot" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="34" Content="{x:Static resx:Resource.lblAufdruckBlau}"  x:Name="lblAufdruckBlau" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="59" Content="{x:Static resx:Resource.lblAufdruckGruen}"  x:Name="lblAufdruckGruen" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="84" Content="{x:Static resx:Resource.lblAufdruckBraun}" x:Name="lblAufdruckBraun" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="134" Content="{x:Static resx:Resource.lblAufdruckMagenta}" x:Name="lblAufdruckMagenta" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="109" Content="{x:Static resx:Resource.lblAufdruckGrau}" x:Name="lblAufdruckGrau" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="159" Content="{x:Static resx:Resource.lblAufdruckCyan}" x:Name="lblAufdruckCyan" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="184" Content="{x:Static resx:Resource.lblAufdruckGelb}" x:Name="lblAufdruckGelb" Width="130" />
-                            <Label Canvas.Left="7" Canvas.Top="209" Content="{x:Static resx:Resource.lblAufdruckOrange}" x:Name="lblAufdruckOrange" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="9" Content="{Binding LocalizedText.lblAufdruckRot, Mode=OneWay}"  x:Name="lblAufdruckRot" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="34" Content="{Binding LocalizedText.lblAufdruckBlau, Mode=OneWay}"  x:Name="lblAufdruckBlau" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="59" Content="{Binding LocalizedText.lblAufdruckGruen, Mode=OneWay}"  x:Name="lblAufdruckGruen" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="84" Content="{Binding LocalizedText.lblAufdruckBraun, Mode=OneWay}" x:Name="lblAufdruckBraun" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="134" Content="{Binding LocalizedText.lblAufdruckMagenta, Mode=OneWay}" x:Name="lblAufdruckMagenta" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="109" Content="{Binding LocalizedText.lblAufdruckGrau, Mode=OneWay}" x:Name="lblAufdruckGrau" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="159" Content="{Binding LocalizedText.lblAufdruckCyan, Mode=OneWay}" x:Name="lblAufdruckCyan" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="184" Content="{Binding LocalizedText.lblAufdruckGelb, Mode=OneWay}" x:Name="lblAufdruckGelb" Width="130" />
+                            <Label Canvas.Left="7" Canvas.Top="209" Content="{Binding LocalizedText.lblAufdruckOrange, Mode=OneWay}" x:Name="lblAufdruckOrange" Width="130" />
 
                             <Rectangle Canvas.Left="302" Canvas.Top="6" Height="20" x:Name="displayRedRectangle" Stroke="Black" StrokeThickness="1" RadiusX="5" RadiusY="5" Width="14">
                                 <Rectangle.Fill>
@@ -355,68 +354,68 @@
                 </TabControl>
 
                 <TabControl Canvas.Left="345" Canvas.Top="10" Height="513" x:Name="tabControl3" Width="360" Background="{x:Null}">
-                    <TabItem Header="{x:Static resx:Resource.tabItemDatenbankspalten}" x:Name="tabItemDatenbankspalten">
+                    <TabItem Header="{Binding LocalizedText.tabItemDatenbankspalten, Mode=OneWay}" x:Name="tabItemDatenbankspalten">
                         <Canvas Height="480" Width="348">
-                            <Label Canvas.Left="11" Canvas.Top="9" Content="{x:Static resx:Resource.lblLegendTable}"  x:Name="lblLegendTable" Foreground="#FF27B23A" FontWeight="Bold" />
+                            <Label Canvas.Left="11" Canvas.Top="9" Content="{Binding LocalizedText.lblLegendTable, Mode=OneWay}"  x:Name="lblLegendTable" Foreground="#FF27B23A" FontWeight="Bold" />
                             <ComboBox Canvas.Left="142" Canvas.Top="5" Height="21" x:Name="cboTable" Width="200" SelectedItem="{Binding FormData.Table, Mode=TwoWay, ValidatesOnDataErrors=True}" ItemsSource="{Binding FormData.Tables}" IsEditable="True" />
 
-                            <Label Canvas.Left="11" Canvas.Top="34" Content="{x:Static resx:Resource.lblDatabaseId}"  x:Name="lblDatabaseId" Foreground="#FF27B23A" FontWeight="Bold" />
+                            <Label Canvas.Left="11" Canvas.Top="34" Content="{Binding LocalizedText.lblDatabaseId, Mode=OneWay}"  x:Name="lblDatabaseId" Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="142" Canvas.Top="30" x:Name="txtVerknuepfung" Width="160" Tag="ID"  Text="{Binding FormData.DatabaseId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="59" Content="{x:Static resx:Resource.lblSortierschluessel}"  x:Name="lblSortierschluessel" Foreground="#FF27B23A" FontWeight="Bold" />
+                            <Label Canvas.Left="11" Canvas.Top="59" Content="{Binding LocalizedText.lblSortierschluessel, Mode=OneWay}"  x:Name="lblSortierschluessel" Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="142" Canvas.Top="55"  x:Name="txtSortierung" Width="160" Tag="L_SORT" Text="{Binding FormData.Sortierschluessel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="84" Content="{x:Static resx:Resource.lblLegendentext}"  x:Name="lblLegendentext" Foreground="#FF27B23A" FontWeight="Bold" />
+                            <Label Canvas.Left="11" Canvas.Top="84" Content="{Binding LocalizedText.lblLegendentext, Mode=OneWay}"  x:Name="lblLegendentext" Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="142" Canvas.Top="80"  x:Name="txtLegendentext" Tag="L_TEXT" Width="160" Text="{Binding FormData.Legendentext, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="109" Content="{x:Static resx:Resource.lblZeichenelemente}"  x:Name="lblZeichenelemente" Foreground="#FF27B23A" FontWeight="Bold" />
+                            <Label Canvas.Left="11" Canvas.Top="109" Content="{Binding LocalizedText.lblZeichenelemente, Mode=OneWay}"  x:Name="lblZeichenelemente" Foreground="#FF27B23A" FontWeight="Bold" />
                             <TextBox Canvas.Left="142" Canvas.Top="105"  x:Name="txtZeichenelemente" Width="160" Tag="L_SYMB" Text="{Binding FormData.Zeichenelemente, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="134" Content="{x:Static resx:Resource.lblLegendengrafik}"  x:Name="lblLegendengrafik" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="134" Content="{Binding LocalizedText.lblLegendengrafik, Mode=OneWay}"  x:Name="lblLegendengrafik" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="130"  x:Name="txtLegendengrafik" Width="160" IsEnabled="{Binding FormData.ChkLegendengrafik}" Tag="L_GRAPHICS" Text="{Binding FormData.Legendengrafik, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                             <CheckBox Canvas.Left="323" Canvas.Top="135" x:Name="chkLegendengrafik" Tag="True" IsChecked="{Binding FormData.ChkLegendengrafik, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="159" Content="{x:Static resx:Resource.lblUeberschrift1}" x:Name="lblUeberschrift1" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="159" Content="{Binding LocalizedText.lblUeberschrift1, Mode=OneWay}" x:Name="lblUeberschrift1" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="155"  x:Name="txtUeberschrift1" Width="160" IsEnabled="{Binding FormData.ChkUeberschrift1}" Tag="HEADING1" Text="{Binding FormData.Ueberschrift1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                             <CheckBox Canvas.Left="323" Canvas.Top="160" x:Name="chkUeberschrift1" Tag="True" IsChecked="{Binding FormData.ChkUeberschrift1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Label Canvas.Left="11" Canvas.Top="184" Content="{x:Static resx:Resource.lblUeberschrift2}" x:Name="lblUeberschrift2" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="184" Content="{Binding LocalizedText.lblUeberschrift2, Mode=OneWay}" x:Name="lblUeberschrift2" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="180"  x:Name="txtUeberschrift2" IsEnabled="{Binding FormData.ChkUeberschrift2}" Tag="HEADING2" Text="{Binding FormData.Ueberschrift2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="185" Tag="True" IsChecked="{Binding FormData.ChkUeberschrift2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkUeberschrift2" />
-                            <Label Canvas.Left="11" Canvas.Top="209" Content="{x:Static resx:Resource.lblUeberschrift3}"  x:Name="lblUeberschrift3" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="209" Content="{Binding LocalizedText.lblUeberschrift3, Mode=OneWay}"  x:Name="lblUeberschrift3" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="205"  x:Name="txtUeberschrift3" IsEnabled="{Binding FormData.ChkUeberschrift3}"  Tag="HEADING3" Text="{Binding FormData.Ueberschrift3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="209" Tag="True" IsChecked="{Binding FormData.ChkUeberschrift3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkUeberschrift3" />
 
-                            <Label Canvas.Left="11" Canvas.Top="234" Content="{x:Static resx:Resource.lblKlammerebene1}"  x:Name="lblKlammerebene1" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="234" Content="{Binding LocalizedText.lblKlammerebene1, Mode=OneWay}"  x:Name="lblKlammerebene1" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="230"  x:Name="txtKlammerebene1" IsEnabled="{Binding FormData.ChkKlammerebene1}" Tag="BRACKET1" Text="{Binding FormData.Klammerebene1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="235" Tag="True" IsChecked="{Binding FormData.ChkKlammerebene1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkKlammerebene1" />
 
-                            <Label Canvas.Left="11" Canvas.Top="259" Content="{x:Static resx:Resource.lblKlammerebene2}"  x:Name="lblKlammerebene2" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="259" Content="{Binding LocalizedText.lblKlammerebene2, Mode=OneWay}"  x:Name="lblKlammerebene2" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="255"  x:Name="txtKlammerebene2" IsEnabled="{Binding FormData.ChkKlammerebene2}" Tag="BRACKET2" Text="{Binding FormData.Klammerebene2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="260" Tag="True" IsChecked="{Binding FormData.ChkKlammerebene2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkKlammerebene2" />
 
-                            <Label Canvas.Left="11" Canvas.Top="284" Content="{x:Static resx:Resource.lblKlammerebene3}"  x:Name="lblKlammerebene3" Width="121" FontSize="11" />
+                            <Label Canvas.Left="11" Canvas.Top="284" Content="{Binding LocalizedText.lblKlammerebene3, Mode=OneWay}"  x:Name="lblKlammerebene3" Width="121" FontSize="11" />
                             <TextBox Canvas.Left="142" Canvas.Top="280"  x:Name="txtKlammerebene3" IsEnabled="{Binding FormData.ChkKlammerebene3}" Tag="BRACKET3" Text="{Binding FormData.Klammerebene3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="285" Tag="True" IsChecked="{Binding FormData.ChkKlammerebene3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkKlammerebene3" />
 
-                            <Label Canvas.Left="11" Canvas.Top="309" Content="{x:Static resx:Resource.lblGruppierung}"  x:Name="lblGruppierung" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="309" Content="{Binding LocalizedText.lblGruppierung, Mode=OneWay}"  x:Name="lblGruppierung" Width="121" />
                             <TextBox Canvas.Left="142" Canvas.Top="305"  x:Name="txtGruppierung" Width="160" IsEnabled="{Binding FormData.ChkGruppierung}" Tag="L_GROUP" Text="{Binding FormData.Gruppierung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                             <CheckBox Canvas.Left="323" Canvas.Top="310" x:Name="chkGruppierung" Tag="True" IsChecked="{Binding FormData.ChkGruppierung, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <Label Canvas.Left="11" Canvas.Top="334" Content="{x:Static resx:Resource.lblFlaeche}"  x:Name="lblFlaeche" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="334" Content="{Binding LocalizedText.lblFlaeche, Mode=OneWay}"  x:Name="lblFlaeche" Width="121" />
                             <TextBox Canvas.Left="143" Canvas.Top="330"  x:Name="txtFlaeche"  IsEnabled="{Binding FormData.ChkFlaechensymbolname}" Tag="FILL_SYMBOL" Text="{Binding FormData.Flaechensymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="335" Tag="True" IsChecked="{Binding FormData.ChkFlaechensymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkFlaeche" />
-                            <Label Canvas.Left="11" Canvas.Top="359" Content="{x:Static resx:Resource.lblLinie}"  x:Name="lblLinie" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="359" Content="{Binding LocalizedText.lblLinie, Mode=OneWay}"  x:Name="lblLinie" Width="121" />
                             <TextBox Canvas.Left="143" Canvas.Top="355"  x:Name="txtLinie" IsEnabled="{Binding FormData.ChkLiniensymbolname}" Tag="LINE_SYMBOL" Text="{Binding FormData.Liniensymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="360" Tag="True" IsChecked="{Binding FormData.ChkLiniensymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkLinie" />
-                            <Label Canvas.Left="11" Canvas.Top="384" Content="{x:Static resx:Resource.lblMarker}"  x:Name="lblMarker" Width="121" />
+                            <Label Canvas.Left="11" Canvas.Top="384" Content="{Binding LocalizedText.lblMarker, Mode=OneWay}"  x:Name="lblMarker" Width="121" />
                             <TextBox Canvas.Left="143" Canvas.Top="380"  x:Name="txtMarker" IsEnabled="{Binding FormData.ChkMarkersymbolname}" Tag="MARKER_SYMBOL" Text="{Binding FormData.Markersymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="385"  Tag="True" IsChecked="{Binding FormData.ChkMarkersymbolname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkMarker" />
 
-                            <Label Canvas.Left="11" Canvas.Top="409" Content="{x:Static resx:Resource.lblLegendennummer}"  x:Name="lblLegendennummer" Width="126" />
+                            <Label Canvas.Left="11" Canvas.Top="409" Content="{Binding LocalizedText.lblLegendennummer, Mode=OneWay}"  x:Name="lblLegendennummer" Width="126" />
                             <TextBox Canvas.Left="143" Canvas.Top="405"  x:Name="txtLegendennummer" IsEnabled="{Binding FormData.ChkLegendennummer}" Tag="L_NUM" Text="{Binding FormData.Legendennummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="323" Canvas.Top="410" Tag="True" IsChecked="{Binding FormData.ChkLegendennummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkLegendennummer"/>
 
-                            <CheckBox Content="{x:Static resx:Resource.chkFortlaufendeNummer}" x:Name="chkFortlaufendeNummer"   IsChecked="{Binding FormData.ChkFortlaufendeNummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="11" Canvas.Top="431" Tag="False" />
+                            <CheckBox Content="{Binding LocalizedText.chkFortlaufendeNummer, Mode=OneWay}" x:Name="chkFortlaufendeNummer"   IsChecked="{Binding FormData.ChkFortlaufendeNummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="11" Canvas.Top="431" Tag="False" />
                             <TextBox  x:Name="txtFortlaufendeNummer" IsEnabled="{Binding FormData.ChkFortlaufendeNummer}" Tag="fortlaufendeNummer.txt" Text="{Binding FormData.FortlaufendeNummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Canvas.Left="11" Canvas.Top="453" Width="291"  />
                             <Button Content="{DynamicResource imgLoad}" IsEnabled="{Binding  FormData.ChkFortlaufendeNummer}" x:Name="btnFortlaufendeNummer" Width="30"  Canvas.Left="310" Canvas.Top="453" Click="BtnFortlaufendeNummer_Click" />
 
@@ -459,21 +458,21 @@
 
                         </Canvas>
                     </TabItem>
-                    <TabItem Header="{x:Static resx:Resource.tabItemOptionaleDatenbankspalten}" x:Name="tabItemOptionaleDatenbankspalten">
+                    <TabItem Header="{Binding LocalizedText.tabItemOptionaleDatenbankspalten, Mode=OneWay}" x:Name="tabItemOptionaleDatenbankspalten">
                         <Canvas Height="468" Width="348">
-                            <Label Canvas.Left="16" Canvas.Top="23" Content="{x:Static resx:Resource.lblInfozeile4}"  x:Name="lblInfozeile4" Width="103" />
+                            <Label Canvas.Left="16" Canvas.Top="23" Content="{Binding LocalizedText.lblInfozeile4, Mode=OneWay}"  x:Name="lblInfozeile4" Width="103" />
                             <TextBox Canvas.Left="147" Canvas.Top="19" x:Name="txtInfozeile4" IsEnabled="{Binding FormData.ChkInfozeile4}" Tag="HEADING4" Text="{Binding FormData.Infozeile4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="322" Canvas.Top="19" Height="16" Tag="False" IsChecked="{Binding FormData.ChkInfozeile4, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkInfozeile4" />
 
-                            <Label Canvas.Left="16" Canvas.Top="48" Content="{x:Static resx:Resource.lblInfozeile5}" x:Name="lblInfozeile5" Width="103" />
+                            <Label Canvas.Left="16" Canvas.Top="48" Content="{Binding LocalizedText.lblInfozeile5, Mode=OneWay}" x:Name="lblInfozeile5" Width="103" />
                             <TextBox Canvas.Left="147" Canvas.Top="44"  x:Name="txtInfozeile5" IsEnabled="{Binding FormData.ChkInfozeile5}" Tag="HEADING5" Text="{Binding FormData.Infozeile5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="322" Canvas.Top="49" Height="16" Tag="False" IsChecked="{Binding FormData.ChkInfozeile5, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkInfozeile5" />
 
-                            <Label Canvas.Left="16" Canvas.Top="73" Content="{x:Static resx:Resource.lblInfozeile6}" x:Name="lblInfozeile6" Width="103" />
+                            <Label Canvas.Left="16" Canvas.Top="73" Content="{Binding LocalizedText.lblInfozeile6, Mode=OneWay}" x:Name="lblInfozeile6" Width="103" />
                             <TextBox Canvas.Left="147" Canvas.Top="69"  x:Name="txtInfozeile6" IsEnabled="{Binding FormData.ChkInfozeile6}" Tag="HEADING6" Text="{Binding FormData.Infozeile6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="160" />
                             <CheckBox Canvas.Left="322" Canvas.Top="78" Height="16" Tag="False" IsChecked="{Binding FormData.ChkInfozeile6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkInfozeile6" />
 
-                            <Label Canvas.Left="16" Canvas.Top="98" Content="{x:Static resx:Resource.lblNotizen}"  x:Name="lblNotizen" Width="103" />
+                            <Label Canvas.Left="16" Canvas.Top="98" Content="{Binding LocalizedText.lblNotizen, Mode=OneWay}"  x:Name="lblNotizen" Width="103" />
                             <TextBox Canvas.Left="147" Canvas.Top="94"  x:Name="txtZweiteSpalte" Width="160" IsEnabled="{Binding FormData.ChkNotizen}" Tag="NOTES" Text="{Binding FormData.Notizen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                             <CheckBox Canvas.Left="322" Canvas.Top="103" Height="16" Tag="False" IsChecked="{Binding FormData.ChkNotizen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkNotizenfeld" />
                         </Canvas>
@@ -499,21 +498,21 @@
                 </Popup>
 
                 <Grid  Width="348" Canvas.Left="351" Canvas.Top="535" Height="89">
-                    <Label Content="{x:Static resx:Resource.lblStyle}" Height="19" x:Name="lblStyle" Margin="10,0,177,70" />
+                    <Label Content="{Binding LocalizedText.lblStyle, Mode=OneWay}" Height="19" x:Name="lblStyle" Margin="10,0,177,70" />
                     <ComboBox x:Name="cboStyleFile" FlowDirection="LeftToRight" Text="" Margin="10,19,45,51" />
                     <Image x:Name="InfoImage" Source="Skins/Images/info.png" Stretch="None" Width="16" Height="16" ToolTip="Erweiterte Informationen" SnapsToDevicePixels="True" MouseEnter="InfoImage_MouseEnter" MouseLeave="InfoImage_MouseLeave" Margin="322,19,10,54" />
-                    <CheckBox Content="{x:Static resx:Resource.chkFarbwerte}" x:Name="chkFarbwerte" IsChecked="{Binding FormData.ChkFarbwerte, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,42,126,31" />
-                    <CheckBox Content="{x:Static resx:Resource.chkAllowNullLegendNumber}" x:Name="chkAllowNullLegendNumber" IsChecked="{Binding FormData.ChkAllowNullLegendNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,63,133,10" />
+                    <CheckBox Content="{Binding LocalizedText.chkFarbwerte, Mode=OneWay}" x:Name="chkFarbwerte" IsChecked="{Binding FormData.ChkFarbwerte, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,42,126,31" />
+                    <CheckBox Content="{Binding LocalizedText.chkAllowNullLegendNumber, Mode=OneWay}" x:Name="chkAllowNullLegendNumber" IsChecked="{Binding FormData.ChkAllowNullLegendNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,63,133,10" />
                 </Grid>
 
                 <StackPanel Margin="0,4,0,0" Width="309" Canvas.Left="6" Canvas.Top="531">
-                    <CheckBox  Content="{x:Static resx:Resource.chkSpatialQuery}" Height="18"  IsChecked="{Binding FormData.ChkSpatialQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkNurSichtbarerBereich" />
+                    <CheckBox  Content="{Binding LocalizedText.chkSpatialQuery, Mode=OneWay}" Height="18"  IsChecked="{Binding FormData.ChkSpatialQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="chkNurSichtbarerBereich" />
                     <StackPanel Orientation="Horizontal">
-                        <Label  Content="{x:Static resx:Resource.lblSpatialQueryId}" x:Name="lblID" />
+                        <Label  Content="{Binding LocalizedText.lblSpatialQueryId, Mode=OneWay}" x:Name="lblID" />
                         <TextBox x:Name="txtSpatialQueryId" Width="160" IsEnabled="{Binding FormData.ChkSpatialQuery}" Tag="GBANR" Text="{Binding FormData.SpatialQueryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                     </StackPanel>
                     <StackPanel Height="10"/>
-                    <Label  Content="{x:Static resx:Resource.lblAttributeQuery}" Height="18" x:Name="lblAttributeQuery" />
+                    <Label  Content="{Binding LocalizedText.lblAttributeQuery, Mode=OneWay}" Height="18" x:Name="lblAttributeQuery" />
                     <TextBox Height="50" x:Name="txtAttributeQuery" TextWrapping="Wrap" Text="{Binding FormData.AttributeQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" />
                 </StackPanel>
 

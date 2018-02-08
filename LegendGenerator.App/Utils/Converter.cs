@@ -82,5 +82,5 @@ namespace LegendGenerator.App.Utils
             return rgbColor;
 
         }
-    }
+    }      
 }

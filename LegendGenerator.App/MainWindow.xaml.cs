@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Resources;
-using System.Collections;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Win32;
 using ESRI.ArcGIS.Framework;
@@ -11,14 +7,12 @@ using ESRI.ArcGIS.ArcMapUI;
 using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Display;
 using System.IO;
-using LegendGenerator.App.Resources;
 using LegendGenerator.App.View.Help;
 using LegendGenerator.App.Model;
 using LegendGenerator.App.Utils;
 using System.Windows.Threading;
 using LegendGenerator.App.View;
 using LegendGenerator.App.ViewModel;
-using System.Linq;
 
 namespace LegendGenerator.App
 {   
@@ -117,20 +111,6 @@ namespace LegendGenerator.App
 
             m_application = application;//?? throw new Exception("Hook helper is not initialized");//for the communication with the ArcGIS-Application!         
             layoutCreator = new LayoutCreator(this, m_application);//um auf die GIS-Methoden zugreifen zu können
-
-            //language settings: detect the windows language settings and load the correct language:
-            language = System.Globalization.CultureInfo.CurrentCulture.Name;
-            if (language.Contains("de") == true)
-            {
-                language = "de";
-                this.chkSpracheDeutsch.IsChecked = true;
-            }
-            else
-            {
-                language = "en";
-                this.chkSpracheEnglisch.IsChecked = true;
-            }
-            Resource.Culture = new System.Globalization.CultureInfo(language);
         }
 
         #endregion
@@ -280,182 +260,7 @@ namespace LegendGenerator.App
         }
 
         #endregion
-           
-        private void ChkSpracheDeutsch_Checked(object sender, RoutedEventArgs e)
-        {
-            this.chkSpracheEnglisch.IsChecked = false;
-            this.language = "de";
-
-            System.Globalization.CultureInfo test = new System.Globalization.CultureInfo(language);
-            Resource.Culture = new System.Globalization.CultureInfo(language);
-
-            Window window = this;
-            List<string> ControlNames = new List<string>();
-
-            ResourceSet resourceSet = Resource.ResourceManager.GetResourceSet(test, true, true);
-            foreach (DictionaryEntry entry in resourceSet)
-            {
-                string resourceKey = entry.Key.ToString();//Schlüssel = Name des Controls
-                object resource = entry.Value;//=Content der labels
-                ControlNames.Add(resourceKey.ToString());
-            }
-
-            foreach (Label lbl in TreeHelper.FindChildren<Label>(window))
-            {
-                if (ControlNames.Contains(lbl.Name))
-                {
-                    // do something with lbl here
-                    string content = lbl.Name;
-                    lbl.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-
-            }
-
-            foreach (System.Windows.Controls.Button btn in TreeHelper.FindChildren<System.Windows.Controls.Button>(window))
-            {
-                if (ControlNames.Contains(btn.Name))
-                {
-                    // do something with btn here
-                    string content = btn.Name;
-                    btn.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-            }
-
-            foreach (CheckBox chk in TreeHelper.FindChildren<CheckBox>(window))
-            {
-                if (ControlNames.Contains(chk.Name))
-                {
-                    // do something with chk here
-                    string content = chk.Name;
-                    chk.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-            }
-
-            foreach (GroupBox grp in TreeHelper.FindChildren<GroupBox>(window))
-            {
-                if (ControlNames.Contains(grp.Name))
-                {
-                    // do something with grp here
-                    string header = grp.Name;
-                    grp.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-
-            foreach (TabItem tabi in TreeHelper.FindChildren<TabItem>(window))
-            {
-                if (ControlNames.Contains(tabi.Name))
-                {
-                    // do something with mni here
-                    string header = tabi.Name;
-                    tabi.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-
-            foreach (MenuItem mni in TreeHelper.FindChildren<MenuItem>(window))
-            {
-                if (ControlNames.Contains(mni.Name))
-                {
-                    // do something with mni here
-                    string header = mni.Name;
-                    mni.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-        }
-
-        private void ChkSpracheDeutsch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.chkSpracheEnglisch.IsChecked = true;
-        }
-
-        private void ChkSpracheEnglisch_Checked(object sender, RoutedEventArgs e)
-        {
-
-            this.chkSpracheDeutsch.IsChecked = false;
-            this.language = "en";
-            System.Globalization.CultureInfo test = new System.Globalization.CultureInfo(language);
-            Resource.Culture = new System.Globalization.CultureInfo(language);
-
-            Window window = this;
-
-            List<string> ControlNames = new List<string>();
-
-            ResourceSet resourceSet = Resource.ResourceManager.GetResourceSet(test, true, true);
-            foreach (DictionaryEntry entry in resourceSet)
-            {
-                string resourceKey = entry.Key.ToString();//Schlüssel = Name des Controls
-                object resource = entry.Value;//=Content der labels
-                ControlNames.Add(resourceKey.ToString());
-
-
-            }
-
-            foreach (Label lbl in TreeHelper.FindChildren<Label>(window))
-            {
-                if (ControlNames.Contains(lbl.Name))
-                {
-                    // do something with lbl here
-                    string content = lbl.Name;
-                    lbl.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-
-            }
-
-            foreach (System.Windows.Controls.Button btn in TreeHelper.FindChildren<System.Windows.Controls.Button>(window))
-            {
-                if (ControlNames.Contains(btn.Name))
-                {
-                    // do something with btn here
-                    string content = btn.Name;
-                    btn.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-            }
-
-            foreach (CheckBox chk in TreeHelper.FindChildren<CheckBox>(window))
-            {
-                if (ControlNames.Contains(chk.Name))
-                {
-                    // do something with chk here
-                    string content = chk.Name;
-                    chk.Content = Resource.ResourceManager.GetString(content, Resource.Culture);
-                }
-            }
-
-            foreach (GroupBox grp in TreeHelper.FindChildren<GroupBox>(window))
-            {
-                if (ControlNames.Contains(grp.Name))
-                {
-                    // do something with grp here
-                    string header = grp.Name;
-                    grp.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-
-            foreach (TabItem tabi in TreeHelper.FindChildren<TabItem>(window))
-            {
-                if (ControlNames.Contains(tabi.Name))
-                {
-                    // do something with mni here
-                    string header = tabi.Name;
-                    tabi.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-
-            foreach (MenuItem mni in TreeHelper.FindChildren<MenuItem>(window))
-            {
-                if (ControlNames.Contains(mni.Name))
-                {
-                    // do something with mni here
-                    string header = mni.Name;
-                    mni.Header = Resource.ResourceManager.GetString(header, Resource.Culture);
-                }
-            }
-        }
-
-        private void ChkSpracheEnglisch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            this.chkSpracheDeutsch.IsChecked = true;
-        }
-            
+          
         private void MnuAppHelp_Click(object sender, RoutedEventArgs e)
         {
             HelpWindow lgh = null;
@@ -657,13 +462,7 @@ namespace LegendGenerator.App
                 base.Close();
             }
         }
-
-        private string CreateFileDoesNotExistMsg()
-        {
-            return "The example XML file '" + pfadKonfigurationsdatei + "' does not exist." + "\n\n" +
-            "To create the example XML file, enter formular data details, then click the 'Save' button.";
-        }
-           
+                   
         private void UpdateCboStyleFile()
         {
             cboStyleFile.Items.Clear();
