@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.IO;
 //using LegendGenerator.Core.CommonDialogWrappers;
 using WPFFolderBrowser;
+using LegendGenerator.App.Model;
 
 namespace LegendGenerator.App.View
 {
@@ -13,16 +14,16 @@ namespace LegendGenerator.App.View
     /// </summary>
     public partial class SymbolDialog : Window
     {
-        MainWindow lgw;
+        FormularData _formData;
         private bool _isInitializing = false;
         private bool btnClicked = false;
 
         //konstruktor:
-        public SymbolDialog(MainWindow window1)
+        public SymbolDialog(FormularData formData)
         {
             this._isInitializing = true;
 
-            this.lgw = window1;
+            this._formData = formData;
             InitializeComponent();
             this._isInitializing = false;
         }
@@ -107,10 +108,10 @@ namespace LegendGenerator.App.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.lgw.CheckedGifExport == true && this.lgw.PfadSymbolDirectory != String.Empty)
+            if (this._formData.ChkGraphicExport == true && this._formData.GraphicExportDirectory != String.Empty)
             {
                 this.chkGifExport.IsChecked = true;
-                this.txtSymbolDirectory.Text = this.lgw.PfadSymbolDirectory;
+                this.txtSymbolDirectory.Text = this._formData.GraphicExportDirectory;
             }
             else
             {
@@ -123,8 +124,8 @@ namespace LegendGenerator.App.View
         {
             if (Directory.Exists(this.txtSymbolDirectory.Text))
             {
-                lgw.PfadSymbolDirectory = this.txtSymbolDirectory.Text;
-                lgw.CheckedGifExport = true;
+                _formData.GraphicExportDirectory = this.txtSymbolDirectory.Text;
+                _formData.ChkGraphicExport = true;
             }
             //Dialog wieder schließen:
             this.btnClicked = true;
@@ -133,8 +134,8 @@ namespace LegendGenerator.App.View
 
         private void btnSymbolNotSave_Click(object sender, RoutedEventArgs e)
         {
-            lgw.PfadSymbolDirectory = String.Empty;
-            lgw.CheckedGifExport = false;
+            _formData.GraphicExportDirectory = String.Empty;
+            _formData.ChkGraphicExport = false;
             this.Close();
         }
 

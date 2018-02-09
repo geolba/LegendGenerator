@@ -131,14 +131,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\DesignDataservice.cs" />
     <Compile Include="Utils\AdornerBehavior.cs" />
-    <Compile Include="Utils\CustomStringToColorConverter.cs" />
+    <Compile Include="Utils\Converter.cs" />
     <Compile Include="Utils\Events.cs" />
     <Compile Include="Utils\NotifyBase.cs" />
     <Compile Include="Utils\ValidationAttribute.cs" />
     <Compile Include="ViewModel\Help\XpsHelpEnViewModel.cs" />
     <Compile Include="ViewModel\Help\XpsHelpViewModel.cs" />
     <Compile Include="ViewModel\Help\HelpViewModel.cs" />
+    <Compile Include="ViewModel\LocalizableViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Help\CopyrightViewModel.cs" />
     <Compile Include="ViewModel\Help\OverviewViewModel.cs" />

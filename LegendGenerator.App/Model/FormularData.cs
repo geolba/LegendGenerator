@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using LegendGenerator.App.Utils;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
 
 /// <summary>
 /// FormularData test class to demonstrate how to include custom metadata attributes in a 
@@ -23,20 +18,12 @@ namespace LegendGenerator.App.Model
 
         private System.DateTime _dateTimeValue;
 
-        //fields for access database       
+        //fields for database       
         private bool _chkAccess;
-
-        //fields for sqlserver!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private bool _chkSde;
-                     
+               
         //fields for the column names!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private List<string> _tables;
-       
-
-        //attributes for symbol:
-        //private bool _chkFarbwerte;
-        //private bool _chkAllowNullLegendNumber;
-        //private string _styleFile;
 
         #endregion
 
@@ -46,11 +33,11 @@ namespace LegendGenerator.App.Model
         {
             //ColumnNames = new System.Collections.ArrayList();
             _tables = new List<string>();
-            this._dateTimeValue = System.DateTime.Now;
+            this._dateTimeValue = System.DateTime.Now;    
         }
 
         #endregion
-
+        
         // Set this 'DateTimeValue' field to be an attribute of the root node.
         [XmlAttributeAttribute(DataType = "date")]
         public System.DateTime DateTimeValue
@@ -66,9 +53,18 @@ namespace LegendGenerator.App.Model
         }
 
         //attributes for sub windows:
-        //public string Konfigurationsdatei { get; set; }
-        public bool ChkGifExport { get; set; }
-        public string SymbolGifDirectory { get; set; }
+        //public string Konfigurationsdatei { get; set; }     
+        public string GraphicExportDirectory
+        {
+            get { return base.Get(() => GraphicExportDirectory); }
+            set { base.Set(() => GraphicExportDirectory, value); }
+        }
+
+        public bool ChkGraphicExport
+        {
+            get { return base.Get(() => ChkGraphicExport); }
+            set { base.Set(() => ChkGraphicExport, value); }
+        }
 
         //allgemeine boolsche Attribute:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public bool TabAccess { get; set; }
