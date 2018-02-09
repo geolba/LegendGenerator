@@ -8,18 +8,19 @@ using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 using ESRI.ArcGIS.Display;
-using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.Output;
 using System.Collections.Generic;
 using System.Linq;
 using LegendGenerator.App.Model;
 using LegendGenerator.App.Utils;
+using LegendGenerator.App.ViewModel;
 
 namespace LegendGenerator.App
 { 
     class LayoutCreator
     {
-        #region class members
+        #region class members   
+
         public string test;
         private IApplication m_application;//for having the access to the ESRI-map!! - wird  vom Command via Konstruktor initialisiert 
         private IMxDocument pMxDoc;
@@ -65,8 +66,8 @@ namespace LegendGenerator.App
         }
 
         #endregion
-        
-        //first method create the legend template:
+
+        //first method: create the legend template:
         public void CreateTemplate ( )
         {         
            string styleSet = String.Empty;
@@ -396,345 +397,8 @@ namespace LegendGenerator.App
             //Ausgabe an die Statuszeile: Statuszeile ausnahmsweise public in der Klasse LegendGeneratorForm:
             pLegendGeneratorForm.staLblMessage.Content = "A new legend template was created - right on top of the page";
         }
-
-        //second method for crating the style dump:
-        public void StyleDump()
-        {
-            bool styleExists = false;          
-            string styleSet = String.Empty;
-            IStyleGallery pStyGall = pMxDoc.StyleGallery;         
-            IStyleGalleryStorage pStyleGalleryStorage = (IStyleGalleryStorage)pStyGall;          
-            for (int i = 0; i < pStyleGalleryStorage.FileCount; i++)
-            {
-                if (pStyleGalleryStorage.get_File(i).Contains(pLegendGeneratorForm.cboStyleFile.Text))
-                {
-                    styleSet = pStyleGalleryStorage.get_File(i);
-                    styleExists = true;
-                }
-            }
-            if (styleSet == String.Empty)
-            {
-                MessageBox.Show("For the style dumping process a correct style file must be loaded!",
-                "Error in the stylefinding-finding-process", MessageBoxButton.OK, MessageBoxImage.Error);
-                //output status:
-                pLegendGeneratorForm.staLblMessage.Content = "For the style dumping process a correct style file must be loaded!";
-                //pLegendGeneratorForm.Controls["staLblMessage"].Text  = "For creating the template, the geolba-stylefile must be loaded into the Style gallery" +
-                //    "use the button 'Load Symbol Style' therfore!";
-                styleExists = false;
-                
-            }
-
-            if (styleExists != false)
-            {
-                string pStylePath;
-                pStylePath = styleSet;
-                pStyleGalleryStorage.RemoveFile(pStylePath);
-                string mdb_styledump;
-                Random random = new Random();
-                mdb_styledump = "tmp_styledump_" + random.Next(1, 9999999) + ".mdb";
-              
-                File.Copy(pStylePath, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + mdb_styledump);
-                //wieder hinzufügen:
-                pStyleGalleryStorage.AddFile(pStylePath);
-
-                //Get the ITable from the geodatabase:
-                IWorkspaceFactory pFact;
-                IWorkspace pWorkspace;
-                IFeatureWorkspace pFeatWS;
-                ITable pAllTable;
-                ITable pMarkerTable;
-                ITable pLineTable;
-                ITable pFillTable;
-                IFields pAllFields;           
-                IRow pRow;
-                IRow pAllRow;
-                ICursor tabCursor;
-                IFeatureWorkspaceManage pFWM;
-                IEnumDatasetName pEnumDatasetName;
-                IDatasetName pDatasetName;
-
-                pFact = new AccessWorkspaceFactory();
-                pWorkspace = pFact.OpenFromFile(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + mdb_styledump, 0);
-                pFWM = (IFeatureWorkspaceManage) pWorkspace;
-                pEnumDatasetName = pWorkspace.get_DatasetNames(esriDatasetType.esriDTAny);//Enum
-                pDatasetName = pEnumDatasetName.Next();
-
-                while (pDatasetName != null)
-                {
-                    if (pDatasetName.Name.Length > 6)
-                    {
-
-                        if (pDatasetName.Name.PartString(pDatasetName.Name.Length - 7, 7) == "Symbols")
-                        {
-                        }
-                        else
-                        {
-                            pFWM.DeleteByName(pDatasetName);
-                        }
-                        
-                    }
-                    else
-                    {
-                        pFWM.DeleteByName(pDatasetName);
-                    }
-                    pDatasetName = pEnumDatasetName.Next();
-                }
-
-                IDatabaseCompact pDatabaseCompact;
-                if (pWorkspace is IDatabaseCompact)
-                {
-                    pDatabaseCompact = (IDatabaseCompact) pWorkspace;
-                    if (pDatabaseCompact.CanCompact() == true)
-                    {
-                        pDatabaseCompact.Compact();
-                    }
-                }
-
-                pFeatWS = (IFeatureWorkspace) pWorkspace;
-                pMarkerTable = pFeatWS.OpenTable("Marker Symbols");
-                pLineTable = pFeatWS.OpenTable("Line Symbols");
-                pFillTable = pFeatWS.OpenTable("Fill Symbols");
-                pAllFields = pFillTable.Fields;
-                pAllTable = pFeatWS.CreateTable(pStylePath.Replace(".", "_"), pAllFields, null, null, "defaults");
-
-                ESRI.ArcGIS.Geodatabase.IField pField = new ESRI.ArcGIS.Geodatabase.Field();
-                IFieldEdit pFldEdit;
-                pFldEdit = pField as IFieldEdit;
-                pFldEdit.Name_2 = "L_SYMB";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;//Enum
-                pFldEdit.Length_2 = 100;
-                pAllTable.AddField (pFldEdit);
-                //IFieldEdit pFldEdit2 = new FieldClass();
-                IFieldEdit pFldEdit2 = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit2.Name_2 = "L_SORT";
-                pFldEdit2.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit2.Length_2 = 100;
-                pAllTable.AddField(pFldEdit2);
-                //IFieldEdit pFldEdit3 = new FieldClass();
-                IFieldEdit pFldEdit3 = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit3.Name_2 = "L_TEXT";
-                pFldEdit3.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit3.Length_2 = 100;
-                pAllTable.AddField(pFldEdit3);
-                //IFieldEdit pFldEdit4 = new FieldClass();
-                IFieldEdit pFldEdit4 = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit4.Name_2 = "FILL_SYMBOL";
-                pFldEdit4.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit4.Length_2 = 140;
-                pAllTable.AddField(pFldEdit4);
-                //IFieldEdit pFldEdit5 = new FieldClass();
-                IFieldEdit pFldEdit5 = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit5.Name_2 = "LINE_SYMBOL";
-                pFldEdit5.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit5.Length_2 = 100;
-                pAllTable.AddField(pFldEdit5);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "MARKER_SYMBOL";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 100;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "HEADING1";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "HEADING2";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-               
-
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "L_NUM";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeInteger;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "L_GROUP";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 100;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "L_GRAPHICS";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 100;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-
-                pFldEdit.Name_2 = "HEADING3";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-
-                pFldEdit.Name_2 = "BRACKET1";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "BRACKET2";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-                //pFldEdit = new FieldClass();
-                pFldEdit = new ESRI.ArcGIS.Geodatabase.Field() as IFieldEdit;
-                pFldEdit.Name_2 = "BRACKET3";
-                pFldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                pFldEdit.Length_2 = 200;
-                pAllTable.AddField(pFldEdit);
-
-                pAllTable.DeleteField(pAllTable.Fields.get_Field(3));
-                string FehlerStyles;
-                string i_Name;
-                string i_Category;
-                FehlerStyles = "Stylenames: ";
-
-                //MarkerTable
-                tabCursor = pMarkerTable.Search(null, false);
-                pRow = tabCursor.NextRow();
-                while (pRow != null)
-                {
-                    i_Name = pRow.get_Value(1).ToString();
-                    i_Category = pRow.get_Value(2).ToString();
-                    if (i_Name.Length == 7)
-                    {
-                        pAllRow = pAllTable.CreateRow();
-                        pAllRow.Value[1] = i_Name;
-                        pAllRow.Value[2] = i_Category;
-                        pAllRow.Value[4] = "M";
-                        pAllRow.Value[5] = "a" + i_Category + i_Name;
-                        pAllRow.Value[6] = i_Name;//
-                        pAllRow.Value[7] = "#";
-                        pAllRow.Value[8] = "#";
-                        pAllRow.Value[9] = i_Name;
-                        pAllRow.Value[10] = "Marker Symbols";
-                        pAllRow.Value[11] = i_Category;
-                        pAllRow.Value[12] = pAllRow.Value[0];//L_NUM
-                        pAllRow.Value[13] = "#";
-                        pAllRow.Value[14] = "#";
-                        pAllRow.Value[15] = "#";
-                        pAllRow.Value[16] = "#";
-                        pAllRow.Value[17] = "#";
-                        pAllRow.Value[18] = "#";
-                        pAllRow.Store();
-                    }//if zu: i_Name.Length == 7
-                    else
-                    {
-                        FehlerStyles = FehlerStyles + ", " + i_Name;
-                    }//end if
-                    pRow = tabCursor.NextRow();
-                }//wend
-
-                //LineTable
-                tabCursor = pLineTable.Search(null, false);
-                pRow = tabCursor.NextRow();
-                while (pRow != null)
-                {
-                    i_Name = pRow.get_Value(1).ToString();
-                    i_Category = pRow.get_Value(2).ToString();
-                    if (i_Name.Length == 7)
-                    {
-                        pAllRow = pAllTable.CreateRow();
-                        pAllRow.Value[1] = i_Name;
-                        pAllRow.Value[2] = i_Category;
-                        pAllRow.Value[4] = "L";
-                        pAllRow.Value[5] = "b" + i_Category + i_Name;
-                        pAllRow.Value[6] = i_Name;
-                        pAllRow.Value[7] = "#";
-                        pAllRow.Value[8] = i_Name;
-                        pAllRow.Value[9] = "#";
-                        pAllRow.Value[10] = "Line Symbols";
-                        pAllRow.Value[11] = i_Category;
-                        pAllRow.Value[12] = pAllRow.Value[0];
-                        pAllRow.Value[13] = "#";
-                        pAllRow.Value[14] = "#";
-                        pAllRow.Value[15] = "#";
-                        pAllRow.Value[16] = "#";
-                        pAllRow.Value[17] = "#";
-                        pAllRow.Value[18] = "#";
-                        pAllRow.Store();
-                    }//if zu: i_Name.Length == 7
-                    else
-                    {
-                        FehlerStyles = FehlerStyles + ", " + i_Name;
-                    }//end if
-                    pRow = tabCursor.NextRow();
-                }//end
-
-                //Fill Table
-                tabCursor = pFillTable.Search(null, false);
-                pRow = tabCursor.NextRow();
-                while (pRow != null)
-                {
-                    i_Name = pRow.get_Value(1).ToString();
-                    i_Category = pRow.get_Value(2).ToString();
-                    if (i_Name.Length == 7)
-                    {
-                        pAllRow = pAllTable.CreateRow();
-                        pAllRow.Value[1] = i_Name;
-                        pAllRow.Value[2] = i_Category;
-                        pAllRow.Value[4] = "F";
-                        pAllRow.Value[5] = "c" + i_Category + i_Name;
-                        pAllRow.Value[6] = i_Name;
-                        pAllRow.Value[7] = "XXXX" + i_Name;
-                        pAllRow.Value[8] = "#";
-                        pAllRow.Value[9] = "#";
-                        pAllRow.Value[10] = "Fill Symbols";
-                        pAllRow.Value[11] = i_Category;
-                        pAllRow.Value[12] = pAllRow.Value[0];
-                        pAllRow.Value[13] = "#";
-                        pAllRow.Value[14] = "#";
-                        pAllRow.Value[15] = "#";
-                        pAllRow.Value[16] = "#";
-                        pAllRow.Value[17] = "#";
-                        pAllRow.Value[18] = "#";
-                        pAllRow.Store();
-                    }//if zu: i_Name.Length == 7
-                    else
-                    {
-                        FehlerStyles = FehlerStyles + ", " + i_Name;
-                    }//end if
-                    pRow = tabCursor.NextRow();
-                }//end
-
-                //string Antwort;
-                MessageBoxResult antwort = MessageBox.Show("Add Table: \n" + mdb_styledump +" ?", "Import Table into current project", MessageBoxButton.YesNo);
-
-                if (antwort == MessageBoxResult.Yes)
-                {
-                    //Create a new standalone table and add it
-                    //to the collection of the focus map:
-                    IStandaloneTable pStTab;                  
-                    pStTab = new StandaloneTable
-                    {
-                        Table = pAllTable
-                    };
-                    IStandaloneTableCollection pStTabColl;
-                    pStTabColl = ( IStandaloneTableCollection) pMxDoc.FocusMap;
-                    pStTabColl.AddStandaloneTable(pStTab);
-                    //Refresh the TOC
-                    pMxDoc.UpdateContents();
-                    MessageBox.Show("A new legend-database has been dumped", "Information", MessageBoxButton.OK, MessageBoxImage.Information);                 
-                    pLegendGeneratorForm.staLblMessage.Content = "A new legend-database has been dumped";
-                }            
-            }//if (geolba != false) zu
-
-            
-        }
-
-
-        //Dritte Methode: Legende erstellen
+             
+        //second method: cretae the legend
         public void CreateLegend()
         {
             //show the wait cursor:         
@@ -796,11 +460,11 @@ namespace LegendGenerator.App
             int iWidthPixels = 130, iHeightPixels = 71;
             IEnvelope pExportEnv;
             string pExportFileDir = String.Empty;
-            if (pLegendGeneratorForm.CheckedGifExport == true)
+            if (pLegendGeneratorForm.FormData.ChkGraphicExport == true)
             {
-                if (pLegendGeneratorForm.PfadSymbolDirectory != String.Empty && Directory.Exists(pLegendGeneratorForm.PfadSymbolDirectory) == true)
+                if (pLegendGeneratorForm.FormData.GraphicExportDirectory != String.Empty && Directory.Exists(pLegendGeneratorForm.FormData.GraphicExportDirectory) == true)
                 {
-                    pExportFileDir = pLegendGeneratorForm.PfadSymbolDirectory;
+                    pExportFileDir = pLegendGeneratorForm.FormData.GraphicExportDirectory;
                 }
                 else
                 {
@@ -3183,7 +2847,7 @@ namespace LegendGenerator.App
                     //*************************************************************************
                     //'GIF-EXPORT
 
-                    if (pLegendGeneratorForm.CheckedGifExport == true)
+                    if (pLegendGeneratorForm.FormData.ChkGraphicExport == true)
                     {
 
                         IActiveView pActiveView2 = (IActiveView)pMxDoc.PageLayout;

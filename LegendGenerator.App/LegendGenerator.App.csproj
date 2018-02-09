@@ -140,6 +140,7 @@
     <Compile Include="ViewModel\Help\XpsHelpEnViewModel.cs" />
     <Compile Include="ViewModel\Help\XpsHelpViewModel.cs" />
     <Compile Include="ViewModel\Help\HelpViewModel.cs" />
+    <Compile Include="ViewModel\LocalizableViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Help\CopyrightViewModel.cs" />
     <Compile Include="ViewModel\Help\OverviewViewModel.cs" />

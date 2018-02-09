@@ -58,7 +58,8 @@
   <AttributeQuery />
   <ChkFarbwerte>false</ChkFarbwerte>
   <ChkAllowNullLegendNumber>false</ChkAllowNullLegendNumber>
-  <ChkGifExport>false</ChkGifExport>
+  <ChkGraphicExport>false</ChkGraphicExport>
+  <GraphicExportDirectory></GraphicExportDirectory>
   <XOffset>10</XOffset>
   <YOffset>3</YOffset>
   <Vertikalabstand>0,3</Vertikalabstand>

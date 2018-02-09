@@ -23,13 +23,8 @@ namespace LegendGenerator.App
         private IApplication m_application;//um auf die Map zuzugreifen, wird  vom Command via Konstruktor initialisiert 
         private IMxDocument pMxDoc;
         private IActiveView pActiveView;
-        private IMap pMap;
-        
-        private string language;       
-        private string pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;
-
-        private string pfadSymbolDirectory;
-        private bool checkedGifExport;
+        private IMap pMap;             
+      
         //Objekt zur Klasse mit den GIS-Funktionalitäten!!!
         LayoutCreator layoutCreator;
         protected AboutDialog aboutWindow;
@@ -45,31 +40,7 @@ namespace LegendGenerator.App
         #endregion
 
         #region properties:
-
-        public string PfadSymbolDirectory
-        {
-            get
-            {
-                return this.pfadSymbolDirectory;
-            }
-            set
-            {
-                this.pfadSymbolDirectory = value;
-            }
-        }
-
-        public bool CheckedGifExport
-        {
-            get
-            {
-                return this.checkedGifExport;
-            }
-            set
-            {
-                this.checkedGifExport = value;
-            }
-        }
-
+                 
         /// <summary>
         /// Returns the formdata model.
         /// If this returns null, the user cancelled the input.
@@ -90,8 +61,7 @@ namespace LegendGenerator.App
 
         public MainWindow()
         {           
-            InitializeComponent();
-            //this.DataContext = (App.Current.Resources["Locator"] as ViewModelLocator).Main;
+            InitializeComponent();          
             var mainViewModel = (this.Resources["Locator"] as ViewModelLocator).Main;
             this.DataContext = mainViewModel;
             mainViewModel.RequestClose += this.OnViewModelRequestClose;
@@ -102,10 +72,10 @@ namespace LegendGenerator.App
             if (null == application)
             {
                 throw new Exception("Hook helper is not initialized");
-            }
-      
+            }      
             InitializeComponent();    
             var mainViewModel = (this.Resources["Locator"] as ViewModelLocator).Main;
+            mainViewModel.Application = application;
             this.DataContext = mainViewModel;
             mainViewModel.RequestClose += this.OnViewModelRequestClose;
 
@@ -153,18 +123,6 @@ namespace LegendGenerator.App
             else
             {
                 MessageBox.Show(this.FormData.Error);
-            }
-        }
-
-        private void MnuStyleDump_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                layoutCreator.StyleDump();
-            }
-            catch
-            {
-                MessageBox.Show("A general error during the stryle dumping process is occured!", "Style Dump Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -365,27 +323,7 @@ namespace LegendGenerator.App
                 fnd.Close();
             }
         }
-
-        private void MnuGraphicExport_Click(object sender, RoutedEventArgs e)
-        {
-            SymbolDialog sd = null;
-            try
-            {
-                sd = new SymbolDialog(this);
-                //ab.ShowDialog();
-                sd.ShowDialog();//modal
-                if (sd.BtnClicked == true)
-                {
-                    MessageBox.Show("The images will be exported during the legend-creating process in the defined folder!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Please restart the about window!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                sd.Close();
-            }
-        }
-
+           
         private void BtnFortlaufendeNummer_Click(object sender, RoutedEventArgs e)
         {
             //Öffnen eines File Dialogs zur Auswahl der Konfigurationsdatei:

@@ -53,9 +53,18 @@ namespace LegendGenerator.App.Model
         }
 
         //attributes for sub windows:
-        //public string Konfigurationsdatei { get; set; }
-        public bool ChkGifExport { get; set; }
-        public string SymbolGifDirectory { get; set; }
+        //public string Konfigurationsdatei { get; set; }     
+        public string GraphicExportDirectory
+        {
+            get { return base.Get(() => GraphicExportDirectory); }
+            set { base.Set(() => GraphicExportDirectory, value); }
+        }
+
+        public bool ChkGraphicExport
+        {
+            get { return base.Get(() => ChkGraphicExport); }
+            set { base.Set(() => ChkGraphicExport, value); }
+        }
 
         //allgemeine boolsche Attribute:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public bool TabAccess { get; set; }

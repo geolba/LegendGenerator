@@ -220,13 +220,13 @@
     <value>ID:</value>
   </data>
   <data name="lblInfozeile4" xml:space="preserve">
-    <value>Infozeile 4:</value>
+    <value>Info-Überschrift 4:</value>
   </data>
   <data name="lblInfozeile5" xml:space="preserve">
-    <value>Infozeile 5:</value>
+    <value>Info-Überschrift 5:</value>
   </data>
   <data name="lblInfozeile6" xml:space="preserve">
-    <value>Infozeile 6:</value>
+    <value>Info-Überschrift 6:</value>
   </data>
   <data name="lblInstance" xml:space="preserve">
     <value>Instanz:</value>

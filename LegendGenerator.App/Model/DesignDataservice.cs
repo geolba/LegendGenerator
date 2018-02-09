@@ -60,7 +60,8 @@ namespace LegendGenerator.App.Model
             formData.AttributeQuery = "";
             formData.ChkFarbwerte = false;
             formData.ChkAllowNullLegendNumber = false;
-            formData.ChkGifExport = false;
+            formData.ChkGraphicExport = false;
+            formData.GraphicExportDirectory = string.Empty;
 
             formData.XOffset = "10";
             formData.YOffset = "3";

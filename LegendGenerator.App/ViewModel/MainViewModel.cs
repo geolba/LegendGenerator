@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using GalaSoft.MvvmLight;
 using LegendGenerator.App.Model;
 using LegendGenerator.App.Utils;
 using System.Windows;
@@ -9,8 +8,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
 using System.Linq;
 using LegendGenerator.App.View;
-using System.Threading;
-using LegendGenerator.App.Resources;
+using ESRI.ArcGIS.Framework;
 
 namespace LegendGenerator.App.ViewModel
 {
@@ -20,19 +18,18 @@ namespace LegendGenerator.App.ViewModel
     /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
     /// </para> 
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : LocalizableViewModel
     {
         #region fields
 
         private string _title;
-        private string _pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;
+        private string _pfadKonfigurationsdatei = String.Empty;//XML-Projektfile;       
+        //model and dataservice
         private FormularData _formData;
         private readonly IDataService _dataService;
         //fields for language settings
         private bool _chkEnglish;
         private bool _chkGerman;
-        private Resource _resources = new Resource();
-
 
         #endregion
 
@@ -72,7 +69,8 @@ namespace LegendGenerator.App.ViewModel
             LoadAccessDbCommand = new RelayCommand(BtnLoadAccessDb_Click);
             LoadAccessTablesCommand = new RelayCommand(BtnLoadAccessTables_Click);
             LoadSqlTablesCommand = new RelayCommand(BtnLoadSqlServerTables_Click);
-            CloseCommand = new RelayCommand(Close);           
+            CloseCommand = new RelayCommand(Close_Click);
+            GraphicExportCommand = new RelayCommand(MnuGraphicExport_Click);
         }
 
         #region commands
@@ -84,7 +82,8 @@ namespace LegendGenerator.App.ViewModel
         public RelayCommand LoadAccessTablesCommand { get; private set; }
         public RelayCommand LoadSqlTablesCommand { get; private set; }
         public RelayCommand CloseCommand { get; private set; }
-     
+        public RelayCommand GraphicExportCommand { get; private set; }
+
         #endregion
 
         public FormularData FormData
@@ -108,15 +107,8 @@ namespace LegendGenerator.App.ViewModel
                 this._title = value;
                 base.RaisePropertyChanged("Title");
             }
-        }       
-
-        public Resource LocalizedText
-        {
-            get
-            {
-                return _resources;
-            }
         }
+
 
         public bool ChkEnglish
         {
@@ -127,13 +119,17 @@ namespace LegendGenerator.App.ViewModel
                 base.RaisePropertyChanged("ChkEnglish");
                 if (value == true)
                 {
-                    this.ChangeCulture("en-US");
+                    base.ChangeCulture("en-US");
                 }
-
+                else
+                {
+                    base.ChangeCulture("de-AT");
+                }
                 this.CalculateDependentCheckBox(ref _chkGerman, "chkGerman", !value);
 
             }
         }
+
         public bool ChkGerman
         {
             get { return _chkGerman; }
@@ -143,11 +139,20 @@ namespace LegendGenerator.App.ViewModel
                 base.RaisePropertyChanged("ChkGerman");
                 if (value == true)
                 {
-                    this.ChangeCulture("de-AT");
+                    base.ChangeCulture("de-AT");
+                }
+                else
+                {
+                    base.ChangeCulture("en-US");
                 }
                 this.CalculateDependentCheckBox(ref _chkEnglish, "ChkEnglish", !value);
-
             }
+        }
+
+        public IApplication Application
+        {
+            get;
+            set;
         }
 
         #region private helper methods
@@ -324,24 +329,37 @@ namespace LegendGenerator.App.ViewModel
             wd.Close();
         }
 
-        private void Close()
+        private void Close_Click()
         {            
             this.RaiseRequestClose(new FeedbackEventArgs(true, false));
         } 
 
+        private void MnuGraphicExport_Click()
+        {
+            SymbolDialog sd = null;
+            try
+            {
+                sd = new SymbolDialog(this.FormData);
+                //ab.ShowDialog();
+                sd.ShowDialog();//modal
+                if (sd.BtnClicked == true)
+                {
+                    MessageBox.Show("The images will be exported during the legend-creating process in the defined folder!", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please restart the about window!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                sd.Close();
+            }
+        }
+
         private void CalculateDependentCheckBox(ref bool otherCheckBox, string otherProperty, bool negatedCheckValue)
         {
             otherCheckBox = negatedCheckValue;
-            base.RaisePropertyChanged(otherProperty);
+            base.RaisePropertyChanged(otherProperty);            
         }
-
-        private void ChangeCulture(string lang)
-        {
-            var culture = new System.Globalization.CultureInfo(lang);            
-            Thread.CurrentThread.CurrentUICulture = culture;         
-            this.RaisePropertyChanged("LocalizedText");
-        }
-
+                
         private string CreateFileDoesNotExistMsg()
         {
             return "The example XML file '" + _pfadKonfigurationsdatei + "' does not exist." + "\n\n" +

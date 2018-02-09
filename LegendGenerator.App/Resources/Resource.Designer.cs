@@ -19,7 +19,7 @@ namespace LegendGenerator.App.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -412,7 +412,7 @@ namespace LegendGenerator.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infozeile 4:.
+        ///   Looks up a localized string similar to Info-Überschrift 4:.
         /// </summary>
         public static string lblInfozeile4 {
             get {
@@ -421,7 +421,7 @@ namespace LegendGenerator.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infozeile 5:.
+        ///   Looks up a localized string similar to Info-Überschrift 5:.
         /// </summary>
         public static string lblInfozeile5 {
             get {
@@ -430,7 +430,7 @@ namespace LegendGenerator.App.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infozeile 6:.
+        ///   Looks up a localized string similar to Info-Überschrift 6:.
         /// </summary>
         public static string lblInfozeile6 {
             get {

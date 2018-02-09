@@ -46,7 +46,7 @@
             </MenuItem>
 
             <MenuItem x:Name="mnuExport" Header="Export" >
-                <MenuItem x:Name="mnuGraphicExport" Header="{Binding LocalizedText.mnuGraphicExport, Mode=OneWay}" Icon="{DynamicResource ResourceKey=imgSymbolExport}" Foreground="Black" FontWeight="Medium" Click="MnuGraphicExport_Click"/>
+                <MenuItem x:Name="mnuGraphicExport" Header="{Binding LocalizedText.mnuGraphicExport, Mode=OneWay}" Icon="{DynamicResource ResourceKey=imgSymbolExport}" Foreground="Black" FontWeight="Medium"  Command="{Binding GraphicExportCommand}"/>
             </MenuItem>
 
             <MenuItem x:Name="mnuInfo" Header="{Binding LocalizedText.mnuInfo, Mode=OneWay}" >
@@ -73,7 +73,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Canvas Width="709" Height="661">
                 <Button Canvas.Left="529" Canvas.Top="629" Content="{Binding LocalizedText.btnCreateLegend, Mode=OneWay}" Height="23" x:Name="btnCreateLegend" Width="170" IsEnabled="True" Click="BtnCreateLegend_Click" />
-                <Button Canvas.Left="351" Canvas.Top="629" Content="{Binding LocalizedText.btnCreateLegend, Mode=OneWay}" Height="23" x:Name="btnLegendTemplate" Width="170" IsEnabled="True" Click="BtnLegendTemplate_Click" />
+                <Button Canvas.Left="351" Canvas.Top="629" Content="{Binding LocalizedText.btnLegendTemplate, Mode=OneWay}" Height="23" x:Name="btnLegendTemplate" Width="170" IsEnabled="True" Click="BtnLegendTemplate_Click" />
 
                 <TabControl Canvas.Left="6" Canvas.Top="9" Height="236" x:Name="tabControl1" Width="333" Background="{x:Null}">
                     <TabItem Header="{Binding LocalizedText.tabItemAccess, Mode=OneWay}" IsSelected="{Binding FormData.TabAccess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="tabItemAccess" >
